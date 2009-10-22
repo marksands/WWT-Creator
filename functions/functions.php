@@ -17,7 +17,6 @@ function write_vars( &$title, &$description, &$author, &$email, &$galaxies, &$to
 	}
 }
 
-
 function wwt_write_to_xml_test(	&$title, &$description, &$author, &$email, &$galaxies, &$tours, &$audio ) {  
 
 	$doc = new DOMDocument(); 
