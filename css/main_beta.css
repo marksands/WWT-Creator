@@ -1,0 +1,299 @@
+.wwttd  {
+	margin-right: 20px;
+	display: block;
+	border-top: 1px solid #E0E0E0;
+	border-left: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+}
+.wwtae {
+	margin-right: 20px;
+	display: block;
+	border-left: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+	border-bottom: 1px solid #E0E0E0;
+}
+.wwttd label,
+.wwtae label {
+	font-weight: bold;
+	line-height: 1.4em;
+	padding: 4px;
+	background-color: #f1f1f1;
+	display: block;
+	background: #f1f1f1;
+}
+.wwttd label.lb-left,
+.wwtae label.lb-left{
+	float: left;
+	text-indent: 180px;
+	font-size: 16px;
+}
+.wwttd label.lb-right,
+.wwtae label.lb-right{
+	text-indent:400px;
+	font-size: 16px;
+}
+.wwtti-tide input {
+	float: left;
+	width: 400px;
+	margin: 10px 12px;
+}
+.wwtti-tide textarea {
+	margin: 10px 12px;
+}
+
+.wwtti-auem input {
+	margin: 10px 12px;
+	width: 400px;
+}
+
+
+
+/*@----------------------------->
+@@@ 	WWT ADD GALAXY
+@@@
+@@------------------------------>
+*/
+
+.wwtag {
+	margin-right: 20px;
+	display: block;
+	border: 1px solid #E0E0E0;
+}
+
+.wwtag label {
+	font-weight: bold;
+	line-height: 1.4em;
+	padding: 4px;
+	background-color: #f1f1f1;
+	display: block;
+	background: #f1f1f1;
+}
+.wwtag label.lb-left{
+	float: left;
+	text-indent: 16px;
+	font-size: 16px;
+}
+.wwtag label.lb-right{
+	text-indent:48px;
+	font-size: 16px;
+}
+
+.wwtag-radec input {
+	margin: 6px 10px;
+}
+
+#add-galaxy-div {
+    border-bottom:1px solid #E0E0E0;
+	margin-bottom: 18px;
+}
+
+
+.wwt-ra, .wwt-dec {
+	display: block;
+	margin: 8px 10px;
+	float: left;
+}
+
+.wwtag a.wwt-add-button {
+	display:block;
+	color:#555555;
+	font-weight:bold;
+	height:24px;
+	line-height:23px;
+	margin: 8px 8px;
+	text-decoration:none;
+	width:130px;
+	cursor: pointer;
+	
+	background-color:#f5f5f5;
+    border:1px solid #A0A0A0;
+    border-top:1px solid #C0C0C0 ;
+    border-left:1px solid #C0C0C0 ;
+}
+
+a.wwt-del-button {
+/*	clear: both;*/
+/*	float: left;*/
+	display:block;
+	color:#ff0000;
+	font-weight:bold;
+	height:24px;
+	line-height:23px;
+	margin-left: 370px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-decoration:none;
+	width:95px;
+	cursor: pointer;
+	
+
+}
+
+a:hover.wwt-add-button,
+a:hover.wwt-del-button{
+	color:#989898 ;	
+}
+
+a span.wwt-add{
+	background:url(../images/add-grey.png) no-repeat 8px;
+	text-indent:30px;
+	display:block;
+}
+
+a span.wwt-del{
+	background:url(../images/sub-grey.png) no-repeat 8px;
+	text-indent:30px;
+	display:block;
+	height: 24px;
+	
+	background-color:#f5f5f5;
+    border:1px solid #A0A0A0;
+    border-top:1px solid #C0C0C0;
+    border-left:1px solid #C0C0C0;
+}
+
+
+/*@----------------------------->
+@@@ 	WWT MUSIC UPLOAD
+@@@
+@@------------------------------>
+*/
+
+.wwtmu  {
+	margin-right: 20px;
+	display: block;
+	border: 1px solid #E0E0E0;
+}
+.wwtmu label {
+	font-weight: bold;
+	line-height: 1.4em;
+	padding: 4px;
+	background-color: #f1f1f1;
+	display: block;
+	background: #f1f1f1;
+	text-indent: 16px;
+	font-size: 16px;
+}
+
+.wwtmu input {
+	margin: 6px 10px;
+}
+
+.wwtmu a.wwt-upload-music {
+	display:block;
+	color:#555555;
+	font-weight:bold;
+	height:24px;
+	line-height:23px;
+	margin: 8px 8px;
+	text-decoration:none;
+	width:100px;
+	cursor: pointer;
+	
+	background-color:#f5f5f5;
+    border:1px solid #A0A0A0;
+    border-top:1px solid #C0C0C0 ;
+    border-left:1px solid #C0C0C0 ;
+}
+a:hover.wwt-upload-music{
+	color:#989898 ;	
+}
+a span.wwt-music{
+	background:url(../images/grey-music.png) no-repeat 8px;
+	text-indent:30px;
+	display:block;
+}
+
+
+.wwtst  {
+	margin-top: 28px;
+	margin-right: 20px;
+	display: block;
+	/*border: 1px solid #E0E0E0;*/
+}
+
+.wwtst a.wwt-save-button {
+	display:block;
+	color:#555555;
+	font-weight:bold;
+	height:24px;
+	line-height:23px;
+	margin: 8px 8px;
+	text-decoration:none;
+	width:80px;
+	cursor: pointer;
+	
+	background-color:#f5f5f5;
+    border:1px solid #A0A0A0;
+    border-top:1px solid #C0C0C0 ;
+    border-left:1px solid #C0C0C0 ;
+}
+a:hover.wwt-save-button{
+	color:#989898 ;	
+}
+a span.wwt-save{
+	background:url(../images/save-grey.png) no-repeat 8px;
+	text-indent:30px;
+	display:block;
+}
+
+
+
+
+
+
+
+
+
+/* FOR SAVE TOUR MODAL */
+
+/*
+    ColorBox Core Style
+    The following rules are the styles that are consistant between all ColorBox themes
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative; overflow:visible;}
+#cboxLoadedContent{overflow:auto;}
+#cboxLoadedContent iframe{display:block; width:100%; height:100%; border:0;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+
+/* 
+    ColorBox example user style
+    The following rules are ordered and tabbed in a way that represents the order/nesting of the generated HTML, 
+    in hope that this will make the relationship easier to understand. Thanks, jack@colorpowered.com
+*/
+#cboxOverlay{background:url(modal-images/overlay.png) 0 0 repeat;}
+
+#colorbox{}
+	#cboxTopLeft{width:21px; height:21px; background:url(modal-images/borderTopLeft.png) 0 0 no-repeat;}
+	#cboxTopCenter{height:21px; background:url(modal-images/borderTopCenter.png) 0 0 repeat-x;}
+	#cboxTopRight{width:21px; height:21px; background:url(modal-images/borderTopRight.png) 0 0 no-repeat;}
+	#cboxBottomLeft{width:21px; height:21px; background:url(modal-images/borderBottomLeft.png) 0 0 no-repeat;}
+	#cboxBottomCenter{height:21px; background:url(modal-images/borderBottomCenter.png) 0 0 repeat-x;}
+	#cboxBottomRight{width:21px; height:21px; background:url(modal-images/borderBottomRight.png) 0 0 no-repeat;}
+	#cboxMiddleLeft{width:21px; background:url(modal-images/borderMiddleLeft.png) 0 0 repeat-y;}
+	#cboxMiddleRight{width:21px; background:url(modal-images/borderMiddleRight.png) 0 0 repeat-y;}
+	#cboxContent{background:#fff;}
+		#cboxLoadedContent{margin-bottom:28px;}
+                #cboxTitle{position:absolute; bottom:3px; left:0; text-align:center; width:100%; color:#949494;}
+                #cboxCurrent{position:absolute; bottom:3px; left:58px; color:#949494;}
+                #cboxSlideshow{position:absolute; bottom:3px; right:30px; color:#0092ef;}
+                #cboxPrevious{position:absolute; bottom:0; left:0px; background:url(modal-images/controls.png) -25px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+                #cboxPrevious.hover{background-position:-25px -25px;}
+                #cboxNext{position:absolute; bottom:0; left:27px; background:url(modal-images/controls.png) 0px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+                #cboxNext.hover{background-position:0px -25px;}
+				
+		#cboxLoadingOverlay{background:url(modal-images/loading_background.png) center center no-repeat;}
+                #cboxLoadingGraphic{width:220px; height:60px; background:url(modal-images/ajax-loader.gif) 0px 20px no-repeat;}
+	/*	#cboxClose{position:absolute; bottom:0; right:0; background:url(modal-images/controls.png) -50px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;} */
+	/*	#cboxClose.hover{background-position:-50px -25px;}																											   */
+		
+		#cboxClose{position:absolute; bottom:0; right:0; background:url(modal-images/controls.png) -9999px -9999px no-repeat; width:0px; height:0px; text-indent:-9999px;} */
+		#cboxClose.hover{background-position:-9999px -9999px;}
+		
+	#cBoxProcessData{text-align:center; font-size: 14px;}
+	#cBoxProcessingBar{width:220px; height:20px; background:url(modal-images/ajax-loader.gif) 0 0 no-repeat;} 
