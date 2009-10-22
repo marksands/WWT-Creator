@@ -12,7 +12,7 @@
 
 	<label for="async-upload">Music</label>
 	
-	<input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
+	<!-- <input type="hidden" name="MAX_FILE_SIZE" value="4194304" /> -->
 	<input type="file" name="audio-file" id="audio-file" />
 
 	<a href="#" class="wwt-upload-music" onClick="">

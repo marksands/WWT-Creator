@@ -11,7 +11,7 @@ function send_post_headers_xml2wwt( &$info ) {
 	
 	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/';
 	
-	mkdir( $path . '/tours' );
+	if ( !$path . '/tours')
 	$tourDir = $path . '/tours/';
 	
 	$xmlFile = $path . 'tour.xml';

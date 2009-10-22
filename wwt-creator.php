@@ -36,7 +36,7 @@ function wwt_meta()
 { ?>		
 	<h2> Worldwide Telescope Tour Creator </h2>
 
-	<form method="post" action="<?php echo $PHP_SELF;?>" name="tour-form">		
+	<form method="post" action="<?php echo $PHP_SELF;?>" name="tour-form" enctype="multipart/form-data">		
 
 		<?php include_once($wwtpluginpath . 'includes/tour_info.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/add_galaxy.html.php') ?>
@@ -63,7 +63,13 @@ if( isset( $_REQUEST['ra'] ) ) {
 			$galaxies[] = array('ra' => $raval, 'dec' => $decval);
 	}
 	
+	echo "\nThis is the audio file format: " . $_FILES["audio-file"]["name"] . "\n";
+	echo "\nThis is the audio file format: " . $_FILES["audio-file"]["tmp_name"] . "\n";
+	echo "\nThis is the audio file format: " . $_FILES["audio-file"]["type"] . "\n";
+	
+	
 	$audio = UploadMusic();
+	echo "\naudio return? " . $audio . "\n";
 	
 	write_vars( $title, $description, $author, $email, $galaxies, $tours );	
 	wwt_write_to_xml_test( $title, $description, $author, $email, $galaxies, $tours, $audio );
