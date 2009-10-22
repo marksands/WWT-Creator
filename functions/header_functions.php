@@ -44,36 +44,11 @@ function wwt_meta2() {
 }
 
 function addHeaderCode() {
-   
-	echo '<link type="text/css" rel="stylesheet" href="' . get_bloginfo('wpurl') . '/wp-content/plugins/wwt-creator/css/main_beta.css" />' . "\n";
-
-//	$effectscore = WP_CONTENT_URL.'/plugins/wwt-creator/js/jquery/effects.core.js';
-//	$effectshighlight = WP_CONTENT_URL.'/plugins/wwt-creator/js/jquery/effects.highlight.js';
-
-//	wp_enqueue_script( "myJquery", $effectscore );
-//	wp_enqueue_script( "myJquery", $effecthighlight );
-	
-//	echo '<script type="text/javascript" src="'.$effectscore.'" ></script>';
-//	echo '<script type="text/javascript" src="'.$effectshighlight.'" ></script>';
-
-//	echo '<script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/effects.core.js" ></script>';
-//	echo '<script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/effects.highlight.js" ></script>';
+	echo '<link type="text/css" rel="stylesheet" href="' . get_bloginfo('wpurl') . '/wp-content/plugins/wwt-creator/css/main.css" />' . "\n";
 }
 
 function addInitCode() {
 	
-//	$effectscore = WP_CONTENT_DIR.'/plugins/wwt-creator/js/jquery/effects.core.js';
-//	$effectshighlight = WP_CONTENT_DIR.'/plugins/wwt-creator/js/jquery/effects.highlight.js';
-
-//	wp_enqueue_script( "myJquery", $effectscore );
-//	wp_enqueue_script( "myJquery", $effecthighlight );
-	
-//	echo '<script type="text/javascript" src="'.$effectscore.'" ></script>';
-//	echo '<script type="text/javascript" src="'.$effectshighlight.'" ></script>';
-
-//	echo '<script type="text/javascript" src="http://ui.jquery.com/latest/ui/effects.hightlight.js" ></script>';
-//	echo '<script type="text/javascript" src="http://ui.jquery.com/latest/ui/effects.core.js" ></script>';
-
 }
 
 

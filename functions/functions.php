@@ -70,13 +70,6 @@ function wwt_write_to_xml_test(	&$title, &$description, &$author, &$email, &$gal
 	$q = $doc->createElement( "TourStops" ); /* <TourStops> */
 	$doc->appendChild( $q );
 	
-// NOTE: how to add attributes:
-//	$sizeAttr = $doc->createAttribute( "Size" ); /* .. Size = .. */
-//	$q->appendChild( $sizeAttr );
-//	$sizeHandle = $doc->createTextNode( $size );
-//	$sizeAttr->appendChild( $sizeHandle );
-	
-	
 	foreach( $tours as $tour )
 	{
 		$b = $doc->createElement( "TourStop" ); /* <TourStop> */
@@ -97,22 +90,6 @@ function wwt_write_to_xml_test(	&$title, &$description, &$author, &$email, &$gal
 		$Dec->appendChild(			$doc->createTextNode( $tour['zoomlevel'] )		);
 		$b->appendChild( $Dec );	/* </ZoomLevel> */
 		
-//		$z = $doc->createElement( "BackgroundImageSet" ); /* <BackgroundImageSet> */	
-//		$imgSet = $doc->createElement( "ImageSet" );  /* <ImageSet> */
-//		
-//		$genHandle = $doc->createElement( "Generic" ); /* <Generic> */
-//		$genHandle->appendChild(			$doc->createTextNode( $tour['Generic'] )		);
-//		$imgSet->appendChild( $genHandle );	/* </Generic> */
-//		$dataHandle = $doc->createElement( "DataSetType" ); /* <DataSetType> */
-//		$dataHandle->appendChild(			$doc->createTextNode( $tour['DataSetType'] )		);
-//		$imgSet->appendChild( $dataHandle );	/* </DataSetType> */
-//		$bandHandle = $doc->createElement( "BandPass" ); /* <BandPass> */
-//		$bandHandle->appendChild(			$doc->createTextNode( $tour['BandPass'] )		);
-//		$imgSet->appendChild( $bandHandle );	/* </BandPass> */
-//		
-//		$z->appendChild( $imgSet ); /* </ImageSet> */
-//		$b->appendChild( $z ); /* </BackgroundImageSet> */
-//		
 		$q->appendChild( $b ); /* </TourStop> */
 	}
 	
