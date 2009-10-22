@@ -11,12 +11,12 @@
 require_once('functions/xml2wwt.php');
 require_once('functions/functions.php');
 require_once('functions/header_functions.php');
+require_once('functions/audio.php');
 
 add_action('init', 'addInitCode');	
 add_action('admin_head','addHeaderCode');
 add_action('admin_menu', 'wwt_admin_actions');
 add_action('admin_menu', 'wwt_tour_archive_post');
-
 
 
 $wwtpluginpath = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/';
@@ -27,6 +27,7 @@ $author = '';
 $email = '';
 $tours = array();
 $galaxies = array();
+$audio = '';
 
 $tour_objects_id = array();
 
@@ -50,7 +51,7 @@ function wwt_meta()
 
 // TODO: Make this feature work
 if( isset( $_REQUEST['ra'] ) ) {
-
+	
 	for ( $i = 0; $i < 999; $i++ ) {
 		$raid = 'ra' . $i;
 		$decid = 'dec' . $i;
@@ -62,8 +63,10 @@ if( isset( $_REQUEST['ra'] ) ) {
 			$galaxies[] = array('ra' => $raval, 'dec' => $decval);
 	}
 	
+	$audio = UploadMusic();
+	
 	write_vars( $title, $description, $author, $email, $galaxies, $tours );	
-	wwt_write_to_xml_test( $title, $description, $author, $email, $galaxies, $tours );
+	wwt_write_to_xml_test( $title, $description, $author, $email, $galaxies, $tours, $audio );
 
 	$info = array( 
 		'title' => $title,

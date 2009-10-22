@@ -6,7 +6,6 @@ function write_vars( &$title, &$description, &$author, &$email, &$galaxies, &$to
 	$author = $_REQUEST['author'];
 	$email = $_REQUEST['email'];
 	
-	
 	foreach ( $galaxies as $gal )
 	{
 		$tours[] = array(
@@ -19,7 +18,7 @@ function write_vars( &$title, &$description, &$author, &$email, &$galaxies, &$to
 }
 
 
-function wwt_write_to_xml_test(	&$title, &$description, &$author, &$email, &$galaxies, &$tours ) {  
+function wwt_write_to_xml_test(	&$title, &$description, &$author, &$email, &$galaxies, &$tours, &$audio ) {  
 
 	$doc = new DOMDocument(); 
 	$doc->formatOutput = true; 
@@ -122,7 +121,7 @@ function wwt_write_to_xml_test(	&$title, &$description, &$author, &$email, &$gal
 	$music = $doc->createElement( "MusicTrack" ); /* <MusicTrack> */
 	
 	$mufname = $doc->createElement( "Filename" ); /* <Filename> */
-	$mufname->appendChild(		$doc->createTextNode( "music.wma" )	);
+	$mufname->appendChild(		$doc->createTextNode( $audio)	);
 	$music->appendChild( $mufname ); /* </Filename> */
 	
 	$r->appendChild( $music ); /* </MusicTrack> */
@@ -131,7 +130,7 @@ function wwt_write_to_xml_test(	&$title, &$description, &$author, &$email, &$gal
 	$voice = $doc->createElement( "VoiceTrack" ); /* <VoiceTrack> */
 	
 	$vfname = $doc->createElement( "Filename" ); /* <Filename> */
-	$vfname->appendChild(		$doc->createTextNode( "voice.wma" )	);
+	$vfname->appendChild(		$doc->createTextNode( "voice_track.wma" )	);
 	$voice->appendChild( $vfname ); /* </Filename> */
 	
 	$r->appendChild( $voice ); /* </VoiceTrack> */

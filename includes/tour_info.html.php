@@ -1,4 +1,3 @@
-
 <p>Edit tour information here. The tour's title and description will be shown on the tour. The author's name and email address are optional.</p>
 
 <p><strong>Tour Info:</strong></p>

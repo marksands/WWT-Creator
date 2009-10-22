@@ -40,12 +40,6 @@
 			}
 		?>
 		</select>
-
-		<!-- 
-		<a href="#" onClick="addPresetGalaxy(); return false;">
-			<span>Add</span>
-		</a>
-		-->
 	
 		<a href="#" class="wwt-add-button" onClick="addFormField(); return false;">
 			<span class="wwt-add">Add Object</span>
