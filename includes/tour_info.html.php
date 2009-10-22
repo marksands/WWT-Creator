@@ -4,8 +4,8 @@
 
 <div class="wwttd">
 
-	<label for="ra" class="lb-left">Title</label>
-	<label for="dec" class="lb-right">Description</label>
+	<label for="title" class="lb-left">Title</label>
+	<label for="description" class="lb-right">Description</label>
 	
 	<div class="wwtti-tide">
 		<input type="text" id="title" name="title" value="" />
@@ -16,8 +16,8 @@
 
 <div class="wwtae">
 
-	<label for="ra" class="lb-left">Author</label>
-	<label for="dec" class="lb-right">Email</label>
+	<label for="author" class="lb-left">Author</label>
+	<label for="email" class="lb-right">Email</label>
 	
 	<div class="wwtti-auem">
 		<input type="text" id="author" name="author" value="" />
