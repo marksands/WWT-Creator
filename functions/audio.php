@@ -1,24 +1,27 @@
 <?php
 
-$musicDir = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/tours/';
-
 // TODO: validation
 function UploadMusic() {
 
-  //	if (($_FILES["audio-file"]["type"] == "audio/mp3") || ($_FILES["audio-file"]["type"] == "audio/wav") || ($_FILES["audio-file"]["type"] == "audio/aiff"))
+	$rootPath = WP_CONTENT_DIR.'/plugins/'.'wwt-creator';
+	$musicDir = $rootPath . '/tours/';
 	
-	echo "\nThis is the audio file format: " . $_FILES["audio-file"]["name"] . "\n";
-	move_uploaded_file($_FILES["audio-file"]["tmp_name"], $musicDir . $_FILES["audio-file"]["name"]);
-	
-	if (!file_exists( $musicDir . $_FILES["audio-file"]["name"])) {
-		move_uploaded_file($_FILES["audio-file"]["tmp_name"], $musicDir . $_FILES["audio-file"]["name"]);
-	}
-	else { 
-		return "";
-	}
+	$path = $musicDir . $_FILES['audio-file']['name'];
 
-	$path = $musicDir . $_FILES["audio-file"]["name"];
-	return $path;
+	// terrible validation, but whatever
+  if ( $_FILES['audio-file']['type'] == "audio/mpeg" )
+		move_uploaded_file($_FILES['audio-file']['tmp_name'], $path);	
+	
+	// if (!file_exists( $musicDir . $_FILES["audio-file"]["name"])) {
+	// 	move_uploaded_file($_FILES["audio-file"]["tmp_name"], $musicDir . $_FILES["audio-file"]["name"]);
+	// }
+	// else { 
+	// 	return "";
+	// }
+	
+	$webPath = WP_CONTENT_URL.'/plugins/wwt-creator/tours/' . str_replace(" ", "%20", $_FILES['audio-file']['name'] );
+	
+	return $webPath;
 }
 
 ?>

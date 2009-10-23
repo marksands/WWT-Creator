@@ -11,23 +11,27 @@ function send_post_headers_xml2wwt( &$info ) {
 	
 	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/';
 	
-	if ( !$path . '/tours')
-	$tourDir = $path . '/tours/';
+	//if ( !$path . '/tours' ) if (!is_dir($folder)) { mkdir($folder) }
+		$tourDir = $path . '/tours/';
 	
 	$xmlFile = $path . 'tour.xml';
 	$tourFile = $tourDir . 'tour-' . $info['title'] . '.wtt';
 	
-	$fh = fopen($xmlFile, 'r');
+	$fh = fopen($xmlFile, 'rb');
 	$content = fread($fh, filesize($xmlFile));
 	fclose($fh);
 	
 	$post_results = write( $server, $port, $uri, $content );
 	
-	$fh = fopen($tourFile, 'w');
+	$fh = fopen($tourFile, 'wrb');
 	fwrite($fh,$post_results);
 	fclose($fh);
 	
-	write_to_database( $info );
+	// deletes the xml file
+	unlink($xmlFile);
+	
+	// we're not doing this anymore. scrap that idea ;)
+	//write_to_database( $info );
 }
 	
 function write( $server, $port, $uri, &$content ) {
@@ -145,14 +149,10 @@ function write_to_database( &$info )
 
 	if(!$link) {
 		$error = 'Login failed! Unable to connect to database.';
-		echo $error;
-//		include('mysql_error.html.php');
 	}
 
 	if(!mysqli_select_db($link, $wpdatabase)) {
 		$error = "Unable to locate the " . $wpdatabase . " database";
-		echo $error;
-//		include('mysql_error.html.php');
 	}
 	
 	$check_table = 'describe tour';
@@ -190,10 +190,12 @@ function insert_data( &$link, &$info )
 	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/';
 	$tourFile = $path . "tour.wtt";
 	
-	$fh = fopen($tourFile, 'rb');
+	$fh = fopen($tourFile, 'wrb');
 	$content = fread($fh, filesize($tourFile));
 	fclose($fh);
-	//unlink($tourFile);
+	
+	// delete the wtt file
+	unlink($tourFile);
 
 	$title = $info['title'];
 	$description = $info['description'];	

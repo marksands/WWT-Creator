@@ -194,18 +194,43 @@ a span.wwt-del{
     border:1px solid #A0A0A0;
     border-top:1px solid #C0C0C0 ;
     border-left:1px solid #C0C0C0 ;
+
+/* This is for the input.file style */
+	margin-top: -32px;
 }
 a:hover.wwt-upload-music{
 	color:#989898 ;	
 }
-a span.wwt-music{
+
+/* Style the input file */
+div.divinputfile {
+	position: relative;
+}
+
+#fakeupload {
+	width: 360px;
+	z-index: 1;
+}
+
+input.uploadfile {
+	position: relative;
+	text-align: right;
+	-moz-opacity: 0;
+	-webkit-opacity: 0;
+	filter:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+}
+/* End styling the input file */
+
+a span.wwt-music {
 	background:url(../images/grey-music.png) no-repeat 8px;
 	text-indent:30px;
 	display:block;
 }
 
 
-.wwtst  {
+.wwtst {
 	margin-top: 28px;
 	margin-right: 20px;
 	display: block;
