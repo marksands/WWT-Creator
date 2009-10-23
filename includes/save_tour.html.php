@@ -1,9 +1,8 @@
 <?php
 	//$colorbox   = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/js/jquery/jquery.colorbox.js';
-	//$processing = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/includes/processing.inc.php';
-	$colorbox = WP_CONTENT_URL.'/plugins/wwt-creator/js/jquery/jquery.colorbox.js';
+	$processing = WP_CONTENT_URL.'/plugins/wwt-creator/includes/processing.inc.htm';
+	$colorbox = WP_CONTENT_URL.'/plugins/wwt-creator/js/jquery/jquery.colorbox.min.js';
 ?>
-
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo $colorbox ?>"></script>
@@ -14,14 +13,13 @@
 		});	
 
 	</script>	
-		
-		
+
 	<div class="wwtst">
-		
+
 		<input type="hidden" id="wwt-generate-tour" />
-		
+
 		<a href="<?php echo $processing ?>" rel="modal" class="wwt-save-button" onClick="submitTourForm(); return false;">
 			<span class="wwt-save">Save</span>
 		</a>
-		
+
 	</div>

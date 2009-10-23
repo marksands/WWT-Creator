@@ -7,6 +7,8 @@
 	
 	var open, element, settings, callback, maxWidth, maxHeight, loadedWidth, loadedHeight, interfaceHeight, interfaceWidth, index, $related, ssTimeout, $slideshow, $window, $close, $next, $prev, $current, $title, $modal, $wrap, $loadingOverlay, $loadingGraphic, $overlay, $modalContent, $loaded, $borderTopCenter, $borderMiddleLeft, $borderMiddleRight, $borderBottomCenter;
 	
+	var $loadingTextImage, $loadingText;
+	
 	/* Helper Functions */
 	//function for IE6 to set the background overlay
 	function IE6Overlay(){
@@ -186,9 +188,13 @@
 			)
 		);
 		
-		$wrap.find("[id]").css({'float':'left'});
+		$wrap.find("[id]").css({'float':'left'}); 
 		
 		$modalContent.append(
+			
+			$loadingText = $('<span style="margin-left:40px;">Processing tour data...</span>'),
+			$loadingTextImage = $('<img src="../wp-content/plugins/wwt-creator/css/modal-images/ajax-loader.gif" />'),
+			
 			//loaded is filled with temporary HTML to allow the CSS backgrounds for those elements to load before ColorBox is actually called.
 			$loaded = $('<div id="cboxLoadedContent" style="width:0; height:0;" />'),
 			$loadingOverlay = $('<div id="cboxLoadingOverlay" />'),
@@ -290,7 +296,7 @@
 		var speed = settings.transition=="none" ? 0 : settings.speed;
 		$loaded.remove();
 		$loaded = $(object);
-		
+
 		var width;
 		var height;
 		
@@ -346,6 +352,10 @@
 				//Waited until the iframe is added to the DOM & it is visible before setting the src.
 				//This increases compatability with pages using DOM dependent JavaScript.
 				$('#cboxIframe').after("<iframe name='iframe_"+new Date().getTime()+"' frameborder=0 src='"+(settings.href ? settings.href : element.href)+"' />").remove();
+				
+				
+				$loadingText.hide();
+				$loadingTextImage.hide();
 				
 				$loadingOverlay.hide();
 				$loadingGraphic.hide();
@@ -415,10 +425,19 @@
 		
 		$.event.trigger('cbox_load');
 		
-		$loadingOverlay.show();
-		$loadingGraphic.show();
+		
+		// mark's addition
+		$loadingText.show();
+		$loadingTextImage.show();
+		
+		// mark's hack :\
+		//$loadingOverlay.show();
+		//$loadingGraphic.show();
+				
 		$close.show();
 		clearInline();//puts inline elements back if they are being used
+
+		
 		
 		// Evaluate the height based on the optional height and width settings.
 		var height = settings.height ? setSize(settings.height, 'y') - loadedHeight - interfaceHeight : false;

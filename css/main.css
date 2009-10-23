@@ -312,13 +312,17 @@ a span.wwt-save{
                 #cboxNext{position:absolute; bottom:0; left:27px; background:url(modal-images/controls.png) 0px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
                 #cboxNext.hover{background-position:0px -25px;}
 				
-		#cboxLoadingOverlay{background:url(modal-images/loading_background.png) center center no-repeat;}
-                #cboxLoadingGraphic{width:220px; height:60px; background:url(modal-images/ajax-loader.gif) 0px 20px no-repeat;}
+/*		#cboxLoadingOverlay{background:url(modal-images/loading_background.png) center center no-repeat;}*/
+/*                #cboxLoadingGraphic{width:220px; height:60px; background:url(modal-images/ajax-loader.gif) 0px 20px no-repeat;}*/
+                #cboxLoadingGraphic{width:220px; height:60px;}
+
+
+
 	/*	#cboxClose{position:absolute; bottom:0; right:0; background:url(modal-images/controls.png) -50px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;} */
 	/*	#cboxClose.hover{background-position:-50px -25px;}																											   */
 		
 		#cboxClose{position:absolute; bottom:0; right:0; background:url(modal-images/controls.png) -9999px -9999px no-repeat; width:0px; height:0px; text-indent:-9999px;} */
 		#cboxClose.hover{background-position:-9999px -9999px;}
 		
-	#cBoxProcessData{text-align:center; font-size: 14px;}
-	#cBoxProcessingBar{width:220px; height:20px; background:url(modal-images/ajax-loader.gif) 0 0 no-repeat;} 
+	#cboxProcessData{text-align:center; font-size: 14px;}
+	#cboxProcessingBar{width:220px; height:20px; background:url(modal-images/ajax-loader.gif) 0 0 no-repeat;}
