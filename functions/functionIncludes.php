@@ -1,5 +1,23 @@
 <?php
 
+function writeToVariables( &$title, &$description, &$author, &$email, &$galaxies, &$tours ) {
+	
+	$title = $_REQUEST['title'];
+	$description = $_REQUEST['description'];
+	$author = $_REQUEST['author'];
+	$email = $_REQUEST['email'];
+	
+	foreach ( $galaxies as $gal )
+	{
+		$tours[] = array(
+			  'duration' => '00:00:10',     //$_REQUEST['Duration'];
+			  'ra' => $gal['ra'],
+			  'dec' => $gal['dec'],
+			  'zoomlevel' => '0.1'          //$_REQUEST['ZoomLevel'];
+			);
+	}
+}
+
 function wwt_admin_actions() {  
 	add_submenu_page('post-new.php', "Posts", "WWT Tour Creator", 1, "WWT Tour Creator", "wwt_meta"); 
 }  

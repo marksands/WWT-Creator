@@ -1,6 +1,6 @@
 <?php
 
-function send_post_headers_xml2wwt( &$info ) {
+function getTourFromXML( &$info ) {
 	
 	// static information, bad practice to place in a function, but
 	// this information shouldn't ever have to be changed..
@@ -29,9 +29,6 @@ function send_post_headers_xml2wwt( &$info ) {
 	
 	// deletes the xml file
 	unlink($xmlFile);
-	
-	// we're not doing this anymore. scrap that idea ;)
-	//write_to_database( $info );
 }
 	
 function write( $server, $port, $uri, &$content ) {
@@ -138,89 +135,6 @@ function unchunkHttpResponse($str=null) {
 	} while(!empty($check));
     unset($tmp);
     return $str;
-}
-
-
-function write_to_database( &$info )
-{
-	$wpdatabase = 'gztest';
-
-	$link = mysqli_connect( 'mysql.verysuperfluo.us', 'galaxyzoo', 'galaxyzoo' );
-
-	if(!$link) {
-		$error = 'Login failed! Unable to connect to database.';
-	}
-
-	if(!mysqli_select_db($link, $wpdatabase)) {
-		$error = "Unable to locate the " . $wpdatabase . " database";
-	}
-	
-	$check_table = 'describe tour';
-	if ( !mysqli_query($link, $check_table) ) {
-		create_table( $link );
-	}
-	
-	insert_data( $link, $info );
-}
-
-function create_table( &$link )
-{
-	$sql = 'CREATE TABLE tour (
-				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				title TEXT,
-				description TEXT,
-				created_at TIMESTAMP NOT NULL,
-				name TEXT NOT NULL,
-				type VARCHAR(30) NOT NULL,
-				size INT NOT NULL,
-				content MEDIUMBLOB NOT NULL
-			) DEFAULT CHARACTER SET utf8';
-
-	if (!mysqli_query($link, $sql))
-	{
-		$error = "Unable to create table.";
-		echo $error;
-		
-//		include('mysql_error.html.php');
-	}
-}
-
-function insert_data( &$link, &$info )
-{
-	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/';
-	$tourFile = $path . "tour.wtt";
-	
-	$fh = fopen($tourFile, 'wrb');
-	$content = fread($fh, filesize($tourFile));
-	fclose($fh);
-	
-	// delete the wtt file
-	unlink($tourFile);
-
-	$title = $info['title'];
-	$description = $info['description'];	
-	$type = "tour/wtt";
-	$name = "tour" . "-" . time() . ".wtt";
-	$size = filesize($tourfile);
-	$content = addslashes($content);
-	
-	$sql = 'INSERT INTO tour SET
-		title = "' . $title . '",
-		description = "' . $description . '",
-		created_at = NOW(),
-		name = "' . $name . '",
-		type = "' . $type . '",
-		size = "' . $size . '",
-		content = "' . $content . '"';
-		
-
-	if (!mysqli_query($link, $sql))
-	{
-		$error = "Unable to insert data.";
-		echo $error;
-	}
-	
-	
 }
 
 ?>

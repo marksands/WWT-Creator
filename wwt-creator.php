@@ -12,6 +12,7 @@ require_once('functions/xml2wwt.php');
 require_once('functions/functions.php');
 require_once('functions/header_functions.php');
 require_once('functions/audio.php');
+require_once('functions/XMLGenerator.php');
 
 add_action('init', 'addInitCode');	
 add_action('admin_head','addHeaderCode');
@@ -67,15 +68,15 @@ if( isset( $_REQUEST['ra'] ) ) {
 
 	$audio = UploadMusic();
 	
-	write_vars( $title, $description, $author, $email, $galaxies, $tours );	
-	wwt_write_to_xml_test( $title, $description, $author, $email, $galaxies, $tours, $audio );	
+	writeToVariables( $title, $description, $author, $email, $galaxies, $tours );	
+	toXML( $title, $description, $author, $email, $galaxies, $tours, $audio );
 	
 	$info = array( 
 		'title' => $title,
 		'description' => $description
 	);
 	
-	send_post_headers_xml2wwt( $info );
+	getTourFromXML( $info );
 }
 
 ?>

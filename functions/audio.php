@@ -19,7 +19,10 @@ function UploadMusic() {
 	// 	return "";
 	// }
 	
-	$webPath = WP_CONTENT_URL.'/plugins/wwt-creator/tours/' . str_replace(" ", "%20", $_FILES['audio-file']['name'] );
+	if ( $_FILES['audio-file']['name'] != NULL )
+		$webPath = WP_CONTENT_URL.'/plugins/wwt-creator/tours/' . str_replace(" ", "%20", $_FILES['audio-file']['name'] );
+	else
+		$webPath = "";
 	
 	return $webPath;
 }
