@@ -3,7 +3,7 @@
 
 var messier_catalog = [
 	{M:'Messier1', name:'Crab Nebula', ra: '05:34.5', dec:'+22:01'},
-	{M:'Messier2', name:'', ra:'', dec:''},
+	{M:'Messier2', name:'', ra:'21:33.5', dec:'-00:49'},
 	{M:'Messier3', name:'', ra:'13:42.2', dec:'+28:23' },
 	{M:'Messier4', name:'', ra:'16:23.6', dec:'-26:32' },
 	{M:'Messier5', name:'', ra:'15:18.6', dec:'+02:05' },

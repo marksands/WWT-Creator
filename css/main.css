@@ -79,7 +79,7 @@
 }
 
 .wwtag-radec input {
-	margin: 6px 10px;
+	margin: 6px 14px;
 }
 
 #add-galaxy-div {
@@ -119,7 +119,7 @@ a.wwt-del-button {
 	font-weight:bold;
 	height:24px;
 	line-height:23px;
-	margin-left: 370px;
+	margin-left: 400px;
 	padding-top: 8px;
 	padding-bottom: 8px;
 	text-decoration:none;

@@ -1,7 +1,7 @@
 <?php
 	//$colorbox   = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/js/jquery/jquery.colorbox.js';
 	$processing = WP_CONTENT_URL.'/plugins/wwt-creator/includes/processing.inc.htm';
-	$colorbox = WP_CONTENT_URL.'/plugins/wwt-creator/js/jquery/jquery.colorbox.min.js';
+	$colorbox = WP_CONTENT_URL.'/plugins/wwt-creator/js/jquery/jquery.colorbox.js';
 ?>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>

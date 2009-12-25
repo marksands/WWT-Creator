@@ -41,7 +41,7 @@
 		?>
 		</select>
 	
-		<a href="#" class="wwt-add-button" onClick="addFormField(); return false;">
+		<a href="#" class="wwt-add-button">
 			<span class="wwt-add">Add Object</span>
 		</a>
 	</div>

@@ -4,20 +4,21 @@
 	Plugin URI: http://www.galaxyzoo.org
 	Description: Plugin for dynamically creating tours for interaction within Microsoft Worldwide Telescope
 	Author: Mark Sands & Jarod Luebbert
-	Version: 0.3a
+	Version: 0.99999..
 	Author URI: http://www.galaxyzoo.org
 	*/
 
-require_once('functions/xml2wwt.php');
-require_once('functions/functions.php');
-require_once('functions/header_functions.php');
 require_once('functions/audio.php');
+require_once('functions/functionIncludes.php');
+require_once('functions/getTourFromXML.php');
 require_once('functions/XMLGenerator.php');
 
 add_action('init', 'addInitCode');	
 add_action('admin_head','addHeaderCode');
 add_action('admin_menu', 'wwt_admin_actions');
 add_action('admin_menu', 'wwt_tour_archive_post');
+
+register_activation_hook(__FILE__,'jal_install');
 
 
 $wwtpluginpath = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/';
@@ -36,15 +37,11 @@ $tour_objects_id = array();
 function wwt_meta()
 { ?>		
 	<h2> Worldwide Telescope Tour Creator </h2>
-
-	<!-- <form method="post" action="<php echo $PHP_SELF;?>" name="tour-form" enctype="multipart/form-data">		 -->
 	<form action="<?php echo $PHP_SELF;?>" method="post" id="tour-form" enctype="multipart/formdata">
-		
 		<?php include_once($wwtpluginpath . 'includes/tour_info.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/add_galaxy.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/upload_music.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/save_tour.html.php') ?>
-	
 	</form>
 	
 <?php }
@@ -52,7 +49,7 @@ function wwt_meta()
 
 
 
-// TODO: Make this feature work
+// TODO: Fix embarassing code
 if( isset( $_REQUEST['ra'] ) ) {
 	
 	for ( $i = 0; $i < 999; $i++ ) {
@@ -76,7 +73,7 @@ if( isset( $_REQUEST['ra'] ) ) {
 		'description' => $description
 	);
 	
-	getTourFromXML( $info );
+	getTourFromXML( $info, $audio );
 }
 
 ?>

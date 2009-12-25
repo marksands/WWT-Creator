@@ -27,7 +27,7 @@ function toXML(	&$title, &$description, &$author, &$email, &$galaxies, &$tours, 
 	$MusicTag = $xmlobj->addChild( "MusicTrack" );
 		$MusicTag->addChild( "Filename", $audio );
 	$VoiceTag = $xmlobj->addChild( "VoiceTrack" );
-		$VoiceTag->addChild( "Filename", "voice_track.wma" );
+		$VoiceTag->addChild( "Filename", "" );
 
 	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/';
 		

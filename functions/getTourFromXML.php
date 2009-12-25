@@ -1,6 +1,6 @@
 <?php
 
-function getTourFromXML( &$info ) {
+function getTourFromXML( &$info, &$audio ) {
 	
 	// static information, bad practice to place in a function, but
 	// this information shouldn't ever have to be changed..
@@ -10,9 +10,7 @@ function getTourFromXML( &$info ) {
 	$content = '';
 	
 	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/';
-	
-	//if ( !$path . '/tours' ) if (!is_dir($folder)) { mkdir($folder) }
-		$tourDir = $path . '/tours/';
+	$tourDir = $path . 'tours/';
 	
 	$xmlFile = $path . 'tour.xml';
 	$tourFile = $tourDir . 'tour-' . $info['title'] . '.wtt';
@@ -27,8 +25,17 @@ function getTourFromXML( &$info ) {
 	fwrite($fh,$post_results);
 	fclose($fh);
 	
+	/* write the tourlink to database here */
+	// something like,
+	// AddTourToDB($tourFile);
+	//---------------------------------------
+	
 	// deletes the xml file
 	unlink($xmlFile);
+	
+	// no need to keep the audio file around
+	// since it's now merged with the tour file
+	unlink( $tourDir . str_replace( "%20", " ", basename($audio) ) );
 }
 	
 function write( $server, $port, $uri, &$content ) {
