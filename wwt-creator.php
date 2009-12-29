@@ -4,7 +4,7 @@
 	Plugin URI: http://www.galaxyzoo.org
 	Description: Plugin for dynamically creating tours for interaction within Microsoft Worldwide Telescope
 	Author: Mark Sands & Jarod Luebbert
-	Version: 0.99999..
+	Version: 1.0
 	Author URI: http://www.galaxyzoo.org
 	*/
 
@@ -15,11 +15,7 @@ require_once('functions/XMLGenerator.php');
 
 add_action('init', 'addInitCode');	
 add_action('admin_head','addHeaderCode');
-add_action('admin_menu', 'wwt_admin_actions');
-add_action('admin_menu', 'wwt_tour_archive_post');
-
-register_activation_hook(__FILE__,'jal_install');
-
+add_action('admin_menu', 'WWTMenu');
 
 $wwtpluginpath = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/';
 
@@ -50,14 +46,15 @@ function wwt_meta()
 
 
 // TODO: Fix embarassing code
-if( isset( $_REQUEST['ra'] ) ) {
+// bruteforce tour objects
+if( GET('ra') ) {
 	
 	for ( $i = 0; $i < 999; $i++ ) {
 		$raid = 'ra' . $i;
 		$decid = 'dec' . $i;
 	
-		$raval = $_REQUEST[$raid]; 
-		$decval = $_REQUEST[$decid];
+		$raval = GET($raid); 
+		$decval = GET($decid);
 	 
 		if ( $raval != null && $decval != null)
 			$galaxies[] = array('ra' => $raval, 'dec' => $decval);

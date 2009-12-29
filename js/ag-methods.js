@@ -90,7 +90,6 @@
 			$('#galaxy-id').val(id);
 
 			$($('#row'+id-1)).effect("highlight", { color:"#ffff66" }, 1500);
-			//addHighlight(id-1);
 
 			return false;
 		});

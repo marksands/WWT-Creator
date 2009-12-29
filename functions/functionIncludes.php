@@ -18,52 +18,42 @@ function writeToVariables( &$title, &$description, &$author, &$email, &$galaxies
 	}
 }
 
-function wwt_admin_actions() {  
-	add_submenu_page('post-new.php', "Posts", "WWT Tour Creator", 1, "WWT Tour Creator", "wwt_meta"); 
+function WWTMenu() { 
+	add_menu_page('WorldWide Telescope', 'WorldWide Telescope', 'administrator', "WorldWide-Telescope-Menu");
+	add_submenu_page('post-new.php', "Posts", "Tour Creator", 1, "WWT Tour Creator", "wwt_meta"); 
+	add_meta_box('wwt-archive', 'WorldWide Telescope Tour Archive', 'TourArchive', 'post');
 }  
 
-function wwt_tour_archive_post() {
-	add_meta_box('wwt-archive','WorldWide Telescope Tour Archive','wwt_meta2','post');
-}
 
-function wwt_meta2() {
-	
-	// $db = mysqli_connect( 'localhost', 'root', 'raidmax' );
-	// mysqli_select_db($db, 'test');
-
-	// $sql = "SELECT * FROM tour";
-	// $result = mysqli_query($db, $sql);
-	// $rows = mysqli_num_rows($result);
-	
+function TourArchive() {
 	?>
 	
 	<!-- somehow get this to copy this code into the clipboard maybe? [copy embedded code] *click* then paste? -->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	function CopyToClipboard() {
 	   CopiedTxt = $embed;
 	   CopiedTxt.execCommand("Copy");
 	}
-	</script>
+	</script> -->
 	
 	<strong>Select Tour From Archive:</strong>
 		<div class="inside">
-			<div class="left">	
-				
-				<h1>Name</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<h1>Delete?</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<h1>Copy Embed</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<h1>Copy Direct Link</h1>
-				
-				<span>M83 and friends</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>[ ]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>copy</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>copy</span>
+			<div class="left">
+				<table>
+					<tr>
+						<th>Name</th>
+						<th>Embed</th>
+						<th>Hard Link</th>
+						<th>Delete</th>
+					</tr>
 
-				<span>Nebuls and friends</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>[ ]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>copy</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span>copy</span>
-									
+					<?php // generate the files here ?>
+						<tr>
+							<td>---</td>
+						</tr>
+						
+				</table>
+
 				<!-- <select name="tour" id="tour"> -->
 				<?php
 					// for ($i = 0; $i < $rows; $i++) {
@@ -73,9 +63,11 @@ function wwt_meta2() {
 				?>
 				<!-- </select> -->
 			</div>
+			
 			<div class="submit">
 				<input type="submit" name="submit" value="Embed Tour" \>
 			</div>
+			
 		</div>
 	</div>
 	<?php
@@ -104,60 +96,9 @@ function addInitCode() {
 }
 
 
-/* CREATING THE NEW DATABASE TABLE */
-
-$jal_db_version = "1.0";
-
-function jal_install () {
-  global $wpdb;
-  global $jal_db_version;
-
-  $table_name = $wpdb->prefix . "wwttours";
-  if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
-		$sql = "CREATE TABLE " . $table_name . " (
-		  tourname text NOT NULL,
-		  filename text NOT NULL,
-		  UNIQUE KEY id (id)
-		);";
-
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		dbDelta($sql);
-
-		$welcome_name = "Mr. Wordpress";
-		$welcome_text = "Congratulations, you just completed the installation!";
-
-		$insert = "INSERT INTO " . $table_name .
-							" (tourname, filename) " .
-							"VALUES ('" . $wpdb->escape($welcome_name) . "','" . $wpdb->escape($welcome_text) . "')";
-
-		$results = $wpdb->query( $insert );
-		
-		// version control
-		add_option("jal_db_version", $jal_db_version);
-	}
-	
-	
-	// UPGRADE DATABASE
-	$installed_ver = get_option( "jal_db_version" );
-
-
-  if( $installed_ver != $jal_db_version ) {
-		$sql = "CREATE TABLE " . $table_name . " (
-		  tourname text NOT NULL,
-		  filename text NOT NULL,
-		  UNIQUE KEY id (id)
-		);";
-
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		dbDelta($sql);
-
-		update_option( "jal_db_version", $jal_db_version );
-	}
-	
-}
 
 // Make magic happen
-AddTourToDB( $tourname ) {
+function AddTourToDB( $tourname ) {
 	
 	$tour_link = WP_CONTENT_URL.'/plugins/wwt-creator/tours/' . str_replace(" ", "%20", $tourname );
 	$view_link = "http://www.worldwidetelescope.org/webclient/default.aspx?tour=" . $tour_link
@@ -166,10 +107,14 @@ AddTourToDB( $tourname ) {
 	// http://www.worldwidetelescope.org/webclient/default.aspx?tour=http://www.verysuperfluo.us/galaxyzoo/wp-content/plugins/wwt-creator/tours/tour-My%20journey%20through%20the%20cosmos.wtt
 	
 	// $wpdb->write( $view_link )
-	
-	
+
 }
 
-
+function GET($name, $default=null)
+{
+	if ( isset($_GET[$name]) )
+		return $_GET[$name];
+	return $default;
+}
 
 ?>
