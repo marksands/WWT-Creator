@@ -31,11 +31,13 @@ function getTourFromXML( &$info, &$audio ) {
 	//---------------------------------------
 	
 	// deletes the xml file
-	unlink($xmlFile);
+	if ( $xmlFile )
+		unlink($xmlFile);
 	
 	// no need to keep the audio file around
 	// since it's now merged with the tour file
-	unlink( $tourDir . str_replace( "%20", " ", basename($audio) ) );
+	if ( $audio )
+		unlink( $tourDir . str_replace( "%20", " ", basename($audio) ) );
 }
 	
 function write( $server, $port, $uri, &$content ) {

@@ -1,7 +1,10 @@
+	
+	$$ = jQuery.noConflict();
+	
 	// helper
 	function convertToDecimal(old) {
 		var flag = false;
-		var degrees = (old).replace(/:[^:]+$/, '');
+		var degrees = (old).replace(/:[^:]+$$/, '');
 		var minutes = (old).replace(/^.\d+:/, '');
 		
 		if ( /^\d+[.]/.test(minutes) ) {
@@ -10,8 +13,8 @@
 		}
 		
 		// truncate seconds
-		if ( /[.]\d+$/.test(minutes) ) {
-			minutes = minutes.replace(/.\d+$/, '');
+		if ( /[.]\d+$$/.test(minutes) ) {
+			minutes = minutes.replace(/.\d+$$/, '');
 		}
 		
 		if ( /^0/.test(minutes) ) {
@@ -38,58 +41,58 @@
 		var sel = document.getElementById('messier');
 		var pos = sel.options[sel.selectedIndex].value - 1;
 	
-		$('#ra').val(convertToDecimal(messier_catalog[pos].ra));
-		$('#dec').val(convertToDecimal(messier_catalog[pos].dec);
+		$$('#ra').val(convertToDecimal(messier_catalog[pos].ra));
+		$$('#dec').val(convertToDecimal(messier_catalog[pos].dec));
 		
 		return false;
 	}
 	
 	function removeAndHighlight(id) {
-		$('#add-galaxy-div').removeChild($('#row'+id));	
+		$$('#row'+id).remove();
 		return false;
 	}
 
 	function removeFormField(id) {
-		$($('#row'+id)).effect("highlight", { color:"#ff0000" }, 800);
+		$$($$('#row'+id)).effect("highlight", { color:"#ff0000" }, 800);
 		setTimeout("removeAndHighlight(" + id + ")", 600 );
 	}
 	
 	jQuery(function() {
 		
-		$(".wwt-save-button").click(function(e) {
-			$('#wwt-generate-tour').val('1');
+		$$(".wwt-save-button").click(function(e) {
+			$$('#wwt-generate-tour').val('1');
 		  document.forms[0].submit();
 			return false;
 		});
 		
-		$('.wwt-add-button').click(function(e) {
+		$$('.wwt-add-button').click(function(e) {
 			
-			var raVal = $('#ra').value();
-				$('#ra').val('');
-			var decVal = $('#dec').value();
-				$('#dec').val('');
-			var id = $('#galaxy-id').value();
-				$('#galaxy-id').val('');
+			var raVal = $$('#ra').val();
+				$$('#ra').val('');
+			var decVal = $$('#dec').val();
+				$$('#dec').val('');
+			var id = $$('#galaxy-id').val();
+				$$('#galaxy-id').val('');
 
-			$('<div id="row'+id+'" />')
+			$$('<div class="hilite" id="row'+id+'" />')
 				.appendTo('#add-galaxy-div');
 
-			$('<input type="text" class="wwt-ra" id="ra'+id+'" name="ra'+id+'" value="'+raVal+'" />')
+			$$('<input type="text" class="wwt-ra" id="ra'+id+'" name="ra'+id+'" value="'+raVal+'" />')
 				.appendTo('#row'+id+'');
 
-			$('<input type="text" class="wwt-dec" id="dec'+id+'" name="dec'+id+'" value="'+decVal+'" />')
+			$$('<input type="text" class="wwt-dec" id="dec'+id+'" name="dec'+id+'" value="'+decVal+'" />')
 				.appendTo('#row'+id+'');
 
-			$('<a id="wwt-del-button-id" class="wwt-del-button"><span class="wwt-del">Delete</span></a>')
+			$$('<a id="wwt-del-button-id" class="wwt-del-button"><span class="wwt-del">Delete</span></a>')
 				.attr({
 					onClick: 'removeFormField("'+id+'")'
 				})
-				.appendTo('#row'+id)
+				.appendTo('#row'+id);
+
+			$$("#row"+id).effect("highlight", { color:"#ffff66" }, 1500);
 
 			id = ( id - 1 ) + 2;
-			$('#galaxy-id').val(id);
-
-			$($('#row'+id-1)).effect("highlight", { color:"#ffff66" }, 1500);
+			$$('#galaxy-id').val(id);
 
 			return false;
 		});

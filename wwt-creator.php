@@ -1,7 +1,7 @@
 <?php
 	/*
-	Plugin Name: WWT Dynamic Tour Creator
-	Plugin URI: http://www.galaxyzoo.org
+	Plugin Name: WorldWide Telescope Tour Creator
+	Plugin URI: http://www.cosmicremnants.com
 	Description: Plugin for dynamically creating tours for interaction within Microsoft Worldwide Telescope
 	Author: Mark Sands & Jarod Luebbert
 	Version: 1.0
@@ -42,19 +42,30 @@ function wwt_meta()
 	
 <?php }
 
+// $_GET wrapper
+function GET($name, $default=null) {
+	if ( isset($_GET[$name]) )
+		return $_GET[$name];
+	return $default;
+}
 
-
+// $_REQUEST wrapper
+function REQUEST($name, $default=null) {
+	if ( isset($_REQUEST[$name]) )
+		return $_REQUEST[$name];
+	return $default;
+}
 
 // TODO: Fix embarassing code
 // bruteforce tour objects
-if( GET('ra') ) {
+if( REQUEST('title') ) {
 	
 	for ( $i = 0; $i < 999; $i++ ) {
 		$raid = 'ra' . $i;
 		$decid = 'dec' . $i;
 	
-		$raval = GET($raid); 
-		$decval = GET($decid);
+		$raval = REQUEST($raid); 
+		$decval = REQUEST($decid);
 	 
 		if ( $raval != null && $decval != null)
 			$galaxies[] = array('ra' => $raval, 'dec' => $decval);
