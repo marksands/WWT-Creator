@@ -55,8 +55,7 @@ if( POST('title') ) {
 	$author = POST('author');
 	$email = POST('email');
 	
-	foreach ( $galaxies as $gal )
-	{
+	foreach ( $galaxies as $gal ) {
 		$tours[] = array(
 			  'duration' => '00:00:10',
 			  'ra' => $gal['ra'],
@@ -65,13 +64,12 @@ if( POST('title') ) {
 			);
 	}
 	
-	toXML( $title, $description, $author, $email, $galaxies, $tours, $audio );
-	
 	$info = array( 
 		'title' => $title,
 		'description' => $description
 	);
 	
+	toXML( $title, $description, $author, $email, $galaxies, $tours, $audio );
 	getTourFromXML( $info, $audio );
 }
 

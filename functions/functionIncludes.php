@@ -6,6 +6,25 @@ function WWTMenu() {
 }  
 
 function TourArchive() { ?>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>	
+	<script type="text/javascript">
+	// jQuery(function() {
+	// 	
+	// 	jQuery(".delTour").click(function(e) {
+	// 
+	// 			jQuery.ajax({
+	// 				type: "POST",
+	// 				url: "../wp-content/plugins/wwt-creator/functions/deleteCallback.php",
+	// 				data: "tour=" + jQuery(this).parseInt.id // look this up
+	// 			});	
+	// 		
+	// 	  document.forms[0].submit();
+	// 		return false;
+	// 	});
+	// });
+	</script>
+		
 		
 	<div id="postcustomstuff">
 		<div id="ajax-respone"></div>
@@ -63,7 +82,7 @@ function TourArchive() { ?>
 								<input type='submit' id='hardLinkTour$i' name='hardlink_tour' class='add:the-list:newmeta' value='Hard Link' />
 							</td>
 							<td>
-								<input type='submit' id='deleteTour$i' name='delete_tour' class='add:the-list:newmeta' value='Delete'' />
+								<input type='submit' id='deleteTour$i' name='delete_tour' class='add:the-list:newmeta delTour' value='Delete'' />
 							</td>
 						</tr>";
 						$i++;
@@ -110,24 +129,6 @@ function HardLink( $tourfile ) {
 	$view_link = "http://www.worldwidetelescope.org/webclient/default.aspx?tour=" . $tour_link;
 	
 	return $view_link;	
-}
-
-function writeToVariables( &$title, &$description, &$author, &$email, &$galaxies, &$tours ) {
-	
-	$title = $_REQUEST['title'];
-	$description = $_REQUEST['description'];
-	$author = $_REQUEST['author'];
-	$email = $_REQUEST['email'];
-	
-	foreach ( $galaxies as $gal )
-	{
-		$tours[] = array(
-			  'duration' => '00:00:10',     //$_REQUEST['Duration'];
-			  'ra' => $gal['ra'],
-			  'dec' => $gal['dec'],
-			  'zoomlevel' => '0.1'          //$_REQUEST['ZoomLevel'];
-			);
-	}
 }
 
 function ReadTourFiles() {
