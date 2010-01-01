@@ -5,92 +5,74 @@ function WWTMenu() {
 	add_meta_box('wwt-archive', 'WorldWide Telescope Tour Archive', 'TourArchive', 'post');
 }  
 
-function TourArchive() {
-	?>
-	
-	<!-- somehow get this to copy this code into the clipboard maybe? [copy embedded code] *click* then paste? -->
-	<!-- <script type="text/javascript">
-	function CopyToClipboard() {
-	   CopiedTxt = $embed;
-	   CopiedTxt.execCommand("Copy");
-	}
-	</script> -->
-	
-	<div id="wwt-tour-list" class="" > 
+function TourArchive() { ?>
+		
+	<div id="postcustomstuff">
+		<div id="ajax-respone"></div>
+		
+		<p><strong>Select from tour archive:</strong></p> 
 
-		<div class="handlediv" title="Click to toggle">
-		<br />
-		</div>
-		<h3 class='hndle'><span>WorldWide Telescope Tour Archive</span></h3> 
+		<!--  Inner List -->
+		<table id="list-table" style="display: none;"> 
+			<thead> 
+			<tr> 
+				<th class="left">Name</th> 
+				<th>Embed</th> 
+				<th>Hard Link</th>
+				<th>Delete</th>
+			</tr> 
+			</thead> 
+			<tbody id="the-list" class="list:meta"> 
+				<tr>
+					<td>
+					</td>
+				</tr> 
+			</tbody> 
+		</table>
 
-			<div class="inside"> 
-				<div id="postcustomstuff"> 
-					<div id="ajax-response"></div> 
+		<!--  Outer Header thingy-->
+		<table id="newmeta"> 
 
-						<table id="list-table" style="display: none;"> 
-							<thead> 
-							<tr> 
-								<th class="left">Name</th> 
-								<th>Embed</th> 
-								<th>Hard Link</th>
-								<th>Delete</th>
-							</tr> 
-							</thead> 
-							<tbody id="the-list" class="list:meta"> 
-							<tr><td></td></tr> 
-							</tbody> 
-						</table>
+		<thead> 
+			<tr> 
+				<th class="left">Name</th> 
+				<th>Embed</th> 
+				<th>Hard Link</th> 
+				<th>Delete</th> 
+			</tr> 
+		</thead> 
 
-						<p>
-							<strong>Select from tour archive:</strong>
-						</p> 
-
-						<table id="newmeta"> 
-
-						<thead> 
-							<tr> 
-								<th class="left">Name</th> 
-								<th>Embed</th> 
-								<th>Hard Link</th> 
-								<th>Delete</th> 
-							</tr> 
-						</thead> 
-
-						<tbody> 
-													
-							<?php
+		<tbody> 
 									
-							  $results = ReadTourFiles();
-								foreach ( $results as $res )
-								{
-									echo "<tr>
-													<td id="newmetaleft" class="left">
-														$res
-													</td>
-													<td>
-														<a href='#'>Embed</a>
-													</td>
-													<td>
-														<a href='#'>Hard Link</a>														
-													</td>
-													<td>
-														<a href='#'>Delete</a>														
-													</td>
-												</tr>";
-								}
-								
-							?>
+			<?php
+					
+			  $results = ReadTourFiles();
 
-							<tr>
-								<td colspan="2" class="submit"> 
-									<input type="submit" id="addmetasub" name="addmeta" class="add:the-list:newmeta" tabindex="9" value="Add Custom Field" /> 
-									<input type="hidden" id="_ajax_nonce" name="_ajax_nonce" value="315c001a4b" />
-								</td>
-							</tr> 
-						</tbody> 
-					</table> 
-	</div> 
-	</div> 
+				$i = 0;
+				foreach ( $results as $res )
+				{
+					echo
+						"<tr>
+							<td id='' class='left'>
+								<strong>$res</strong>
+							</td>
+							<td>
+								<input type='submit' id='embedTour$i' name='embed_tour' class='add:the-list:newmeta' value='Embed' />
+							</td>
+							<td>
+								<input type='submit' id='hardLinkTour$i' name='hardlink_tour' class='add:the-list:newmeta' value='Hard Link' />
+							</td>
+							<td>
+								<input type='submit' id='deleteTour$i' name='delete_tour' class='add:the-list:newmeta' value='Delete'' />
+							</td>
+						</tr>";
+						$i++;
+				}
+				
+			?>
+			
+		</tbody>
+	</table>
 	</div>
 
 	<?php
@@ -103,6 +85,7 @@ function TourArchive() {
 // This was hard to come by, correct me if I'm wrong please! :)
 function addHeaderCode() {
 	echo '<link type="text/css" rel="stylesheet" href="' . get_bloginfo('wpurl') . '/wp-content/plugins/wwt-creator/css/main.css" />' . "\n";
+	echo '<script type="text/javascript" src="../wp-content/plugins/wwt-creator/js/tourarchive.js" ></script>';
 }
 
 function addInitCode() {

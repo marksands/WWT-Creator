@@ -58,9 +58,41 @@
 	}
 	
 	jQuery(function() {
-		
+				
+		$$("a[rel='modal']").colorbox({
+			transition:"fade",
+			initialWidth:"263",
+			initialHeight:"109",
+			overlayClose:"false"
+		});
+				
+				
+		// SUBMIT TOUR
+		// http://stackoverflow.com/questions/353379/how-to-get-multiple-parameters-with-same-name-from-a-url-in-php
 		$$(".wwt-save-button").click(function(e) {
 			$$('#wwt-generate-tour').val('1');
+				
+				var raVals = new Array();
+				var decVals = new Array();
+
+				$$("input[id^='ra']").each(function() {
+					raVals.push( $$(this).val() );
+				});
+				$$("input[id^='dec']").each(function() {
+					decVals.push( $$(this).val() );
+				});
+				
+				// send ajax request to php file, close loader on success
+				// http://www.talkphp.com/vbarticles.php?do=article&articleid=58&title=simple-ajax-with-jquery	
+				jQuery.ajax({
+					type: "POST",
+					async: false,
+					url: "../wp-content/plugins/wwt-creator/functions/test.php",
+					data: "ra=" + raVals.join(',')
+					  + "&dec=" + decVals.join(',')
+				});	
+			// success: $$.fn.colorbox.close()
+			
 		  document.forms[0].submit();
 			return false;
 		});

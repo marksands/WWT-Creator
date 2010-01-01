@@ -12,6 +12,7 @@ require_once('functions/audio.php');
 require_once('functions/functionIncludes.php');
 require_once('functions/getTourFromXML.php');
 require_once('functions/XMLGenerator.php');
+require_once('test.php');
 
 add_action('init', 'addInitCode');	
 add_action('admin_head','addHeaderCode');
@@ -19,13 +20,13 @@ add_action('admin_menu', 'WWTMenu');
 
 $wwtpluginpath = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/';
 
-$title = '';
-$description = '';
-$author = '';
-$email = '';
-$tours = array();
-$galaxies = array();
-$audio = '';
+global $title = '';
+global $description = '';
+global $author = '';
+global $email = '';
+global $tours = array();
+global $galaxies = array();
+global $audio = '';
 
 $tour_objects_id = array();
 
@@ -33,7 +34,7 @@ $tour_objects_id = array();
 function wwt_meta()
 { ?>		
 	<h2> Worldwide Telescope Tour Creator </h2>
-	<form action="<?php echo $PHP_SELF;?>" method="post" id="tour-form" enctype="multipart/formdata">
+	<form action="<?php echo $PHP_SELF; ?>" method="post" id="tour-form" enctype="multipart/formdata">
 		<?php include_once($wwtpluginpath . 'includes/tour_info.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/add_galaxy.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/upload_music.html.php') ?>
@@ -42,38 +43,28 @@ function wwt_meta()
 	
 <?php }
 
-// $_GET wrapper
-function GET($name, $default=null) {
-	if ( isset($_GET[$name]) )
-		return $_GET[$name];
-	return $default;
-}
 
-// $_REQUEST wrapper
-function REQUEST($name, $default=null) {
-	if ( isset($_REQUEST[$name]) )
-		return $_REQUEST[$name];
-	return $default;
-}
-
-// TODO: Fix embarassing code
-// bruteforce tour objects
-if( REQUEST('title') ) {
+// VERY VERT TESTING ONLY!
+// refactored to handle AJAX request
+if( POST('title') ) {
 	
-	for ( $i = 0; $i < 999; $i++ ) {
-		$raid = 'ra' . $i;
-		$decid = 'dec' . $i;
-	
-		$raval = REQUEST($raid); 
-		$decval = REQUEST($decid);
-	 
-		if ( $raval != null && $decval != null)
-			$galaxies[] = array('ra' => $raval, 'dec' => $decval);
-	}
-
 	$audio = UploadMusic();
+
+	$title = POST('title');
+	$description = POST('description');
+	$author = POST('author');
+	$email = POST('email');
 	
-	writeToVariables( $title, $description, $author, $email, $galaxies, $tours );	
+	foreach ( $galaxies as $gal )
+	{
+		$tours[] = array(
+			  'duration' => '00:00:10',
+			  'ra' => $gal['ra'],
+			  'dec' => $gal['dec'],
+			  'zoomlevel' => '0.1'
+			);
+	}
+	
 	toXML( $title, $description, $author, $email, $galaxies, $tours, $audio );
 	
 	$info = array( 
