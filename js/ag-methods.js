@@ -35,7 +35,6 @@
 		return last;
 	}
 	
-	// minified this
 	function addPresetGalaxy() {
 	
 		var sel = document.getElementById('messier');
@@ -47,14 +46,17 @@
 		return false;
 	}
 	
-	function removeAndHighlight(id) {
-		$$('#row'+id).remove();
-		return false;
-	}
+	// function removeAndHighlight(id) {
+	// 	$$('#row'+id).remove();
+	// 	return false;
+	// }
 
 	function removeFormField(id) {
 		$$($$('#row'+id)).effect("highlight", { color:"#ff0000" }, 800);
-		setTimeout("removeAndHighlight(" + id + ")", 600 );
+
+		setTimeout( $$('#row'+id).remove(), 600 );
+		//setTimeout("removeAndHighlight(" + id + ")", 600 );
+		return false;
 	}
 	
 	jQuery(function() {

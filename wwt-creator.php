@@ -2,7 +2,7 @@
 	/*
 	Plugin Name: WorldWide Telescope Tour Creator
 	Plugin URI: http://www.cosmicremnants.com
-	Description: Plugin for dynamically creating tours for interaction within Microsoft Worldwide Telescope
+	Description: Dynamically create sky tours for interaction within Microsoft Worldwide Telescope
 	Author: Mark Sands & Jarod Luebbert
 	Version: 1.0
 	Author URI: http://www.galaxyzoo.org
@@ -12,7 +12,6 @@ require_once('functions/audio.php');
 require_once('functions/functionIncludes.php');
 require_once('functions/getTourFromXML.php');
 require_once('functions/XMLGenerator.php');
-require_once('test.php');
 
 add_action('init', 'addInitCode');	
 add_action('admin_head','addHeaderCode');
@@ -27,9 +26,6 @@ global $email = '';
 global $tours = array();
 global $galaxies = array();
 global $audio = '';
-
-$tour_objects_id = array();
-
 
 function wwt_meta()
 { ?>		
