@@ -34,31 +34,7 @@
 		
 		return last;
 	}
-	
-	function addPresetGalaxy() {
-	
-		var sel = document.getElementById('messier');
-		var pos = sel.options[sel.selectedIndex].value - 1;
-	
-		$$('#ra').val(convertToDecimal(messier_catalog[pos].ra));
-		$$('#dec').val(convertToDecimal(messier_catalog[pos].dec));
-		
-		return false;
-	}
-	
-	// function removeAndHighlight(id) {
-	// 	$$('#row'+id).remove();
-	// 	return false;
-	// }
 
-	function removeFormField(id) {
-		$$($$('#row'+id)).effect("highlight", { color:"#ff0000" }, 800);
-
-		setTimeout( $$('#row'+id).remove(), 600 );
-		//setTimeout("removeAndHighlight(" + id + ")", 600 );
-		return false;
-	}
-	
 	jQuery(function() {
 				
 		$$("a[rel='modal']").colorbox({
@@ -67,8 +43,20 @@
 			initialHeight:"109",
 			overlayClose:"false"
 		});
+		
+		$$('#messier').change(function(){
+			$$('#ra').val(convertToDecimal(messier_catalog[$$(this).val()].ra));
+			$$('#dec').val(convertToDecimal(messier_catalog[$$(this).val()].dec));
+		});
 				
-				
+		// for YUI, cause it doesn't like this :(
+		// 	$$('.wwt-del').one('click',function(){$$(this:parent).effect("highlight",{color:"#ff0000"},800);setTimeout($$(this:parent).remove(),6600);});
+		
+		// $$('.wwt-del').one('click', function() {
+		// 	$$(this:parent).effect("highlight", { color:"#ff0000" }, 800);
+		// 	setTimeout( $$(this:parent).remove(), 600 );
+		// });
+		// 		
 		// SUBMIT TOUR
 		// http://stackoverflow.com/questions/353379/how-to-get-multiple-parameters-with-same-name-from-a-url-in-php
 		$$(".wwt-save-button").click(function(e) {
@@ -89,7 +77,7 @@
 				jQuery.ajax({
 					type: "POST",
 					async: false,
-					url: "../wp-content/plugins/wwt-creator/functions/test.php",
+					url: "../wp-content/plugins/wwt-creator/functions/register.php",
 					data: "ra=" + raVals.join(',')
 					  + "&dec=" + decVals.join(',')
 				});	

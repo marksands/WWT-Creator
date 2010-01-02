@@ -7,7 +7,7 @@
 <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/effects.highlight.js" ></script>
 <script type="text/javascript" src="../wp-content/plugins/wwt-creator/js/jquery/jquery.colorbox.js"></script>
 <script type="text/javascript" src="../wp-content/plugins/wwt-creator/js/messier_catalog.min.js"></script>
-<script type="text/javascript" src="../wp-content/plugins/wwt-creator/js/ag-methods.js" ></script>
+<script type="text/javascript" src="../wp-content/plugins/wwt-creator/js/ag-methods.min.js" ></script>
 
 
 <p>Enter each galaxy's Right Ascension and Declination values in decimal format. You can add more than one galaxy by clicking the Add Galaxy button.</p>	
@@ -28,7 +28,7 @@
 		<input type="text" id="ra" name="ra" value="" />
 		<input type="text" id="dec" name="dec" value="" />
 		
-		<select name="messier" id="messier" onChange="addPresetGalaxy(); return false;">
+		<select name="messier" id="messier">
 			<option value="0"> Optionally select from a list of preset objects </option>
 		<?php
 			$count = 1;
