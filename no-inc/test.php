@@ -1,13 +1,12 @@
 <?php	
 	
-		global $galaxies;
-		
+		if( empty($_SERVER['CONTENT_TYPE']) ){
+		     $type = "application/x-www-form-urlencoded";
+		     $_SERVER['CONTENT_TYPE'] = $type;
+		}
+	
 		$ras  = explode( ",", $_REQUEST['wwtra'] );
 		$decs = explode( ",", $_REQUEST['wwtdec']);
-		
-		for( $i = 0; $i < sizeof($ras); ++$i ) {
-			$galaxies[] = array( 'ra'  => $ras[$i], 'dec' => $decs[$i] );
-		}
 		
 		$path = './';
 		$crazy = $path . 'crzy.txt';
@@ -17,6 +16,7 @@
 			fwrite($fh, $r);
 		}
 		
-		fclose($fh);
+		fclose($fh);	
+
 		
 ?>

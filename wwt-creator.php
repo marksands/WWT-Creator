@@ -19,18 +19,18 @@ add_action('admin_menu', 'WWTMenu');
 
 $wwtpluginpath = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/';
 
-global $title = '';
-global $description = '';
-global $author = '';
-global $email = '';
-global $tours = array();
-global $galaxies = array();
-global $audio = '';
+$title = '';
+$description = '';
+$author = '';
+$email = '';
+$audio = '';
+$tours = array();
+$galaxies = array();
 
 function wwt_meta()
 { ?>		
 	<h2> Worldwide Telescope Tour Creator </h2>
-	<form action="<?php echo $PHP_SELF; ?>" method="post" id="tour-form" enctype="multipart/formdata">
+	<form action="<?php echo WP_PLUGIN_URL.'/wwt-creator/wwt-creator.php' ?>" method="post" id="tour-form" enctype="multipart/formdata">
 		<?php include_once($wwtpluginpath . 'includes/tour_info.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/add_galaxy.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/upload_music.html.php') ?>
@@ -39,17 +39,31 @@ function wwt_meta()
 	
 <?php }
 
+$path = './';
+$crazy = $path . 'crzy.txt';
+$fh = fopen($crazy, 'wrb');
+$r = "eating out your asshole";
+fwrite($fh, $r);
+fclose($fh);
+
 
 // VERY VERT TESTING ONLY!
 // refactored to handle AJAX request
-if( POST('title') ) {
+if( $_REQUEST['title'] ) {
+	
+	$path = './';
+	$crazy = $path . 'crzy.txt';
+	$fh = fopen($crazy, 'wrb');
+	$r = "requesting title..";
+	fwrite($fh, $r);
+	fclose($fh);
 	
 	$audio = UploadMusic();
 
-	$title = POST('title');
-	$description = POST('description');
-	$author = POST('author');
-	$email = POST('email');
+	$title = $_REQUEST['title'];
+	$description = $_REQUEST['description'];
+	$author = $_REQUEST['author'];
+	$email = $_REQUEST['email'];
 	
 	foreach ( $galaxies as $gal ) {
 		$tours[] = array(

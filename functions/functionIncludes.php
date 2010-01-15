@@ -57,7 +57,7 @@ function TourArchive() { ?>
 				<th class="left">Name</th> 
 				<th>Embed</th> 
 				<th>Hard Link</th> 
-				<th>Delete</th> 
+				<!-- <th>Delete</th> -->
 			</tr> 
 		</thead> 
 
@@ -81,9 +81,11 @@ function TourArchive() { ?>
 							<td>
 								<input type='submit' id='hardLinkTour$i' name='hardlink_tour' class='add:the-list:newmeta' value='Hard Link' />
 							</td>
+							<!--
 							<td>
 								<input type='submit' id='deleteTour$i' name='delete_tour' class='add:the-list:newmeta delTour' value='Delete'' />
 							</td>
+							-->
 						</tr>";
 						$i++;
 				}

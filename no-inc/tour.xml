@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Tour>
+  <Title>mark test 2</Title>
+  <Description>asdf</Description>
+  <Author>adf</Author>
+  <Email>adf</Email>
+  <OrganizationURL>galaxyzoo.org</OrganizationURL>
+  <OrganizationName>galaxyzoo</OrganizationName>
+  <TourStops>
+    <TourStop>
+      <Duration>00:00:10</Duration>
+      <RA>0.18</RA>
+      <Dec>-0.12</Dec>
+      <ZoomLevel>0.1</ZoomLevel>
+    </TourStop>
+  </TourStops>
+  <MusicTrack>
+    <Filename/>
+  </MusicTrack>
+  <VoiceTrack>
+    <Filename/>
+  </VoiceTrack>
+</Tour>

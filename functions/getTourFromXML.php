@@ -31,7 +31,7 @@ function getTourFromXML( &$info, &$audio ) {
 	//---------------------------------------
 	
 	// deletes the xml file
-	//if ( $xmlFile )
+	// if ( $xmlFile )
 		// unlink($xmlFile);
 	
 	// no need to keep the audio file around
