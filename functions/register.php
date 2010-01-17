@@ -1,22 +1,16 @@
 <?php	
+
+if( $_POST ) {
+
+	global $galaxies;
 	
-		global $galaxies;
-		
-		$ras  = explode( ",", $_REQUEST['wwtra'] );
-		$decs = explode( ",", $_REQUEST['wwtdec']);
-		
-		for( $i = 0; $i < sizeof($ras); ++$i ) {
-			$galaxies[] = array( 'ra'  => $ras[$i], 'dec' => $decs[$i] );
-		}
-		
-		$path = './';
-		$crazy = $path . 'crzy.txt';
-		$fh = fopen($crazy, 'wrb');
-		
-		foreach ($ras as $r) {
-			fwrite($fh, $r);
-		}
-		
-		fclose($fh);
+	$ras  = explode( ",", $_POST['wwtra'] );
+	$decs = explode( ",", $_POST['wwtdec']);
+	
+	for( $i = 0; $i < sizeof($ras); ++$i ) {
+		$galaxies[] = array( 'ra'  => $ras[$i], 'dec' => $decs[$i] );
+	}
+	
+}
 		
 ?>

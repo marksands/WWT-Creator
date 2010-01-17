@@ -12,6 +12,7 @@ require_once('functions/audio.php');
 require_once('functions/functionIncludes.php');
 require_once('functions/getTourFromXML.php');
 require_once('functions/XMLGenerator.php');
+require_once('functions/submitform.php');
 
 add_action('init', 'addInitCode');	
 add_action('admin_head','addHeaderCode');
@@ -30,7 +31,7 @@ $galaxies = array();
 function wwt_meta()
 { ?>		
 	<h2> Worldwide Telescope Tour Creator </h2>
-	<form action="<?php echo WP_PLUGIN_URL.'/wwt-creator/wwt-creator.php' ?>" method="post" id="tour-form" enctype="multipart/formdata">
+	<form action="<?php echo WP_PLUGIN_URL.'/wwt-creator/functions/submitform.php' ?>" method="post" id="tour-form" enctype="multipart/formdata">
 		<?php include_once($wwtpluginpath . 'includes/tour_info.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/add_galaxy.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/upload_music.html.php') ?>
@@ -39,24 +40,23 @@ function wwt_meta()
 	
 <?php }
 
-$path = './';
-$crazy = $path . 'crzy.txt';
-$fh = fopen($crazy, 'wrb');
-$r = "eating out your asshole";
-fwrite($fh, $r);
-fclose($fh);
-
-
-// VERY VERT TESTING ONLY!
-// refactored to handle AJAX request
-if( $_REQUEST['title'] ) {
-	
-	$path = './';
-	$crazy = $path . 'crzy.txt';
+// AJAX Request Handler
+if( $_POST ) {
+		
+	$crazy = WP_PLUGIN_DIR.'/wwt-creator/crzy.txt';
 	$fh = fopen($crazy, 'wrb');
-	$r = "requesting title..";
+	$r = "in the ajax handler";
 	fwrite($fh, $r);
-	fclose($fh);
+	fclose($fh);	
+		
+	if ( $_POST['wwtra'] ) {
+		$ras  = explode(",", $_POST['wwtra'] );
+		$decs = explode(",", $_POST['wwtdec']);
+	
+		for( $i = 0; $i < sizeof($ras); ++$i ) {
+			$galaxies[] = array( 'ra'  => $ras[$i], 'dec' => $decs[$i] );
+		}
+	}
 	
 	$audio = UploadMusic();
 

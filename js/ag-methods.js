@@ -1,5 +1,4 @@
 	
-	
 	$z = jQuery.noConflict();
 	
 	// helper
@@ -65,24 +64,42 @@
 			var decVals = new Array();
 
 			$z("input[id^='ra']").each(function() {
-				raVals.push( $(this).val() );
+				raVals.push( $z(this).val() );
 			});
 			$z("input[id^='dec']").each(function() {
-				decVals.push( $(this).val() );
+				decVals.push( $z(this).val() );
 			});
+
+			// var url = "../wp-content/plugins/wwt-creator/functions/register.php";
 			
-			alert("ZOMG!!!!");
-			
-			var url = "../wp-content/plugins/wwt-creator/functions/register.php";
+			var url = "../wp-content/plugins/wwt-creator/functions/register.php";		
 			var params = "wwtra="+raVals.join(',') + "&wwtdec=" + decVals.join(',');
 			
-			http = new XMLHttpRequest();
-			http.open("POST",url,false);
-			http.send(params);
+			// cross browser AJAX support
+			var http = null;
+			try{
+			  // Opera 8.0+, Firefox, Safari
+			  http = new XMLHttpRequest();
+			} catch (e){
+			  // Internet Explorer Browsers
+			  try{
+			    http = new ActiveXObject("Msxml2.XMLHTTP");
+			  } catch (e) {
+			    try{
+			      http = new ActiveXObject("Microsoft.XMLHTTP");
+			    } catch (e){
+			      alert("Your browser does not support Ajax. Please upgrade!");
+			      return false;
+			    }
+			  }
+			}
 			
-			alert("Sent ajax request.");
-
-			$('#tour-form').submit();
+			http.open( "POST", url, true );
+			http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			http.send( params );
+			
+			//$z('#tour-form').submit();
+			
 			return false;
 		});
 		

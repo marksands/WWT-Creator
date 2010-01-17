@@ -6,14 +6,7 @@
   <Email/>
   <OrganizationURL>galaxyzoo.org</OrganizationURL>
   <OrganizationName>galaxyzoo</OrganizationName>
-  <TourStops>
-    <TourStop>
-      <Duration>00:00:10</Duration>
-      <RA/>
-      <Dec/>
-      <ZoomLevel>0.1</ZoomLevel>
-    </TourStop>
-  </TourStops>
+  <TourStops/>
   <MusicTrack>
     <Filename/>
   </MusicTrack>
