@@ -1,6 +1,6 @@
 <?php
 
-function toXML(	&$title, &$description, &$author, &$email, &$galaxies, &$tours, &$audio ) {  
+function toXML(	&$title, &$description, &$author, &$email, &$tours, &$audio ) {  
 
 	$url = "galaxyzoo.org";
 	$team = "galaxyzoo";

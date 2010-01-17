@@ -12,7 +12,6 @@ require_once('functions/audio.php');
 require_once('functions/functionIncludes.php');
 require_once('functions/getTourFromXML.php');
 require_once('functions/XMLGenerator.php');
-require_once('functions/submitform.php');
 
 add_action('init', 'addInitCode');	
 add_action('admin_head','addHeaderCode');
@@ -26,12 +25,11 @@ $author = '';
 $email = '';
 $audio = '';
 $tours = array();
-$galaxies = array();
 
 function wwt_meta()
 { ?>		
 	<h2> Worldwide Telescope Tour Creator </h2>
-	<form action="<?php echo WP_PLUGIN_URL.'/wwt-creator/functions/submitform.php' ?>" method="post" id="tour-form" enctype="multipart/formdata">
+	<form action="<?php echo $PHP_SELF;?>" method="post" id="tour-form" enctype="multipart/formdata">
 		<?php include_once($wwtpluginpath . 'includes/tour_info.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/add_galaxy.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/upload_music.html.php') ?>
@@ -40,21 +38,18 @@ function wwt_meta()
 	
 <?php }
 
-// AJAX Request Handler
 if( $_POST ) {
-		
-	$crazy = WP_PLUGIN_DIR.'/wwt-creator/crzy.txt';
-	$fh = fopen($crazy, 'wrb');
-	$r = "in the ajax handler";
-	fwrite($fh, $r);
-	fclose($fh);	
-		
-	if ( $_POST['wwtra'] ) {
-		$ras  = explode(",", $_POST['wwtra'] );
-		$decs = explode(",", $_POST['wwtdec']);
-	
-		for( $i = 0; $i < sizeof($ras); ++$i ) {
-			$galaxies[] = array( 'ra'  => $ras[$i], 'dec' => $decs[$i] );
+
+	// http://debuggable.com/posts/parsing-xml-using-simplexml:480f4dfe-6a58-4a17-a133-455acbdd56cb
+	$xml = simplexml_load_file(WP_CONTENT_DIR.'/plugins/wwt-creator/tour2.xml'); 		
+	foreach($xml as $stops) {
+		foreach( $stops as $stop) {
+			$tours[] = array( 
+				'duration' => '00:00:10',
+				'ra' => $stop->RA,
+				'dec' => $stop->Dec,
+				'zoomlevel' => '0.1'
+			);
 		}
 	}
 	
@@ -65,21 +60,12 @@ if( $_POST ) {
 	$author = $_REQUEST['author'];
 	$email = $_REQUEST['email'];
 	
-	foreach ( $galaxies as $gal ) {
-		$tours[] = array(
-			  'duration' => '00:00:10',
-			  'ra' => $gal['ra'],
-			  'dec' => $gal['dec'],
-			  'zoomlevel' => '0.1'
-			);
-	}
-	
 	$info = array( 
 		'title' => $title,
 		'description' => $description
 	);
 	
-	toXML( $title, $description, $author, $email, $galaxies, $tours, $audio );
+	toXML( $title, $description, $author, $email, $tours, $audio );
 	getTourFromXML( $info, $audio );
 }
 

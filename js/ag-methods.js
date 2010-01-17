@@ -37,22 +37,55 @@
 
 	jQuery(function() {
 				
-		// $z("a[rel='modal']").colorbox({
-		// 	transition:"fade",
-		// 	initialWidth:"263",
-		// 	initialHeight:"109",
-		// 	overlayClose:"false"
-		// });
+		$z("a[rel='modal']").colorbox({
+			transition:"fade",
+			initialWidth:"263",
+			initialHeight:"109",
+			overlayClose:"false"
+		});
 		
 		$z('#messier').change(function(){
 			$z('#ra').val(convertToDecimal(messier_catalog[$z(this).val()-1].ra));
 			$z('#dec').val(convertToDecimal(messier_catalog[$z(this).val()-1].dec));
 		});
 
-		// NOTE: the 2nd $(this) refers to the parent callback, so don't call $(this).parent				
+		(function(){
+			var queue = [], paused = false;
+			this.timer = function(fn){
+				queue.push( fn ); runTimer();
+			};
+			this.pause = function(){
+				paused = true;
+			};
+			this.resume = function(){
+				paused = false; setTimeout(runTimer, 1);
+			};
+			function runTimer(){ 
+				if ( !paused && queue.length ) {
+					queue.shift()();
+					
+					if ( !paused ) {
+						resume();
+					}
+				}
+			}
+		})();
+
 		$z('#wwt-del-button-id').live('click', function() {
-			$z(this).parent().remove()
-			// $z(this).parent().effect("highlight", { color:"#ff0000" }, 800);
+			timer(function(){ 
+				pause();
+				setTimeout(function(){
+					$z(this).parent().effect("highlight", { color:"#ff0000" }, 800);
+					resume();
+				}, 800);
+			});
+			timer(function(){
+				pause();
+				setTimeout(function(){
+					$z(this).parent().remove()
+					resume();
+				}, 200);
+			});
 		});
 					
 		// Submit tour, sends an ajax request to save the ra/dec vals and submits the tour for php to take care of the rest
@@ -69,8 +102,9 @@
 			$z("input[id^='dec']").each(function() {
 				decVals.push( $z(this).val() );
 			});
-
-			// var url = "../wp-content/plugins/wwt-creator/functions/register.php";
+			// remove empty input fields
+			raVals.pop();
+			decVals.pop();
 			
 			var url = "../wp-content/plugins/wwt-creator/functions/register.php";		
 			var params = "wwtra="+raVals.join(',') + "&wwtdec=" + decVals.join(',');
@@ -94,11 +128,15 @@
 			  }
 			}
 			
+			http.onreadystatechange = function() {
+				if( http.readyState == 4 && http.status == 200 ) {
+					$z('#tour-form').submit();
+				}
+			}
+			
 			http.open( "POST", url, true );
 			http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			http.send( params );
-			
-			//$z('#tour-form').submit();
 			
 			return false;
 		});

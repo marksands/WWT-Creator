@@ -7,7 +7,6 @@
 
 <p><strong>Add Music:</strong></p>
 
-<!-- What's this here for..?  <form action=" echo $_SERVER['PHP_SELF']; " method="post"> -->
 <div class="wwtmu">
 
 	<label for="async-upload">Music</label>
