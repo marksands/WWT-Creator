@@ -13,6 +13,7 @@ function getTourFromXML( &$info, &$audio ) {
 	$tourDir = $path . 'tours/';
 	
 	$xmlFile = $path . 'tour.xml';
+	$xml2File = $path . 'tour2.xml';
 	$tourFile = $tourDir . 'tour-' . $info['title'] . '.wtt';
 	
 	$fh = fopen($xmlFile, 'rb');
@@ -33,7 +34,9 @@ function getTourFromXML( &$info, &$audio ) {
 	// deletes the xml file
 	if ( $xmlFile ) {
 		unlink($xmlFile);
-		unlink(WP_CONTENT_DIR.'/plugins/wwt-creator/tour2.xml');
+		if ( $xml2File ) {
+			unlink(WP_CONTENT_DIR.'/plugins/wwt-creator/tour2.xml');
+		}
 	}
 		
 	

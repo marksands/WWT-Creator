@@ -13,10 +13,6 @@ require_once('functions/functionIncludes.php');
 require_once('functions/getTourFromXML.php');
 require_once('functions/XMLGenerator.php');
 
-add_action('init', 'addInitCode');	
-add_action('admin_head','addHeaderCode');
-add_action('admin_menu', 'WWTMenu');
-
 $wwtpluginpath = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__)).'/';
 
 $title = '';
@@ -28,7 +24,7 @@ $tours = array();
 
 function wwt_meta()
 { ?>		
-	<h2> Worldwide Telescope Tour Creator </h2>
+	<h2> WorldWide Telescope Tour Creator </h2>
 	<form action="<?php echo $PHP_SELF;?>" method="post" id="tour-form" enctype="multipart/formdata">
 		<?php include_once($wwtpluginpath . 'includes/tour_info.html.php') ?>
 		<?php include_once($wwtpluginpath . 'includes/add_galaxy.html.php') ?>
@@ -38,10 +34,10 @@ function wwt_meta()
 	
 <?php }
 
-if( $_POST ) {
+if( $_POST['title'] ) {
 
 	// http://debuggable.com/posts/parsing-xml-using-simplexml:480f4dfe-6a58-4a17-a133-455acbdd56cb
-	$xml = simplexml_load_file(WP_CONTENT_DIR.'/plugins/wwt-creator/tour2.xml'); 		
+	$xml = simplexml_load_file(WP_CONTENT_DIR.'/plugins/wwt-creator/tour2.xml');
 	foreach($xml as $stops) {
 		foreach( $stops as $stop) {
 			$tours[] = array( 
