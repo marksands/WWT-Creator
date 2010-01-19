@@ -55,7 +55,7 @@ function tour_link_head() {
 	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
 	        {action:"linkTour", "c":id, "cookie": encodeURIComponent(document.cookie)},
 	        function(str)   {
-							jQuery('#content').append(str)
+							jQuery('#content').val( jQuery('#content').val() + str );
 	        });
 	}
 
@@ -63,7 +63,7 @@ function tour_link_head() {
 	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
 	        {action:"embedTour", "c":id, "cookie": encodeURIComponent(document.cookie)},
 	        function(str)   {
-						jQuery('#content').append(str)
+						jQuery('#content').val( jQuery('#content').val() + str );
 	        });
 	}
 
