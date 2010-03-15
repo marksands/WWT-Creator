@@ -2,8 +2,6 @@
 
 function getTourFromXML( &$info, &$audio ) {
 	
-	// static information, bad practice to place in a function, but
-	// this information shouldn't ever have to be changed..
 	$server  = 'www.worldwidetelescope.org';
 	$port    = '80';
 	$uri     = 'http://www.worldwidetelescope.org/wwtweb/xml2wtt.aspx';
@@ -13,7 +11,7 @@ function getTourFromXML( &$info, &$audio ) {
 	$tourDir = $path . 'tours/';
 	
 	$xmlFile = $path . 'tour.xml';
-	$xml2File = $path . 'tour2.xml';
+	$xmlFile2= $path . 'tour2.xml';
 	$tourFile = $tourDir . 'tour-' . $info['title'] . '.wtt';
 	
 	$fh = fopen($xmlFile, 'rb');
@@ -21,25 +19,18 @@ function getTourFromXML( &$info, &$audio ) {
 	fclose($fh);
 	
 	$post_results = write( $server, $port, $uri, $content );
-	
+
 	$fh = fopen($tourFile, 'wrb');
 	fwrite($fh,$post_results);
 	fclose($fh);
 	
-	/* write the tourlink to database here */
-	// something like,
-	// AddTourToDB($tourFile);
-	//---------------------------------------
-	
 	// deletes the xml file
 	if ( $xmlFile ) {
+		if ( $xmlFile2 )
+			unlink($xmlFile2);
 		unlink($xmlFile);
-		if ( $xml2File ) {
-			unlink(WP_CONTENT_DIR.'/plugins/wwt-creator/tour2.xml');
-		}
 	}
 		
-	
 	// no need to keep the audio file around
 	// since it's now merged with the tour file
 	if ( $audio )

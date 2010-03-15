@@ -2,14 +2,6 @@
 	include_once( 'messier_catalog.inc.php' );	
 ?>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/effects.core.js" ></script>
-<script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/effects.highlight.js" ></script>
-<script type="text/javascript" src="../wp-content/plugins/wwt-creator/js/jquery/jquery.colorbox.js"></script>
-<script type="text/javascript" src="../wp-content/plugins/wwt-creator/js/messier_catalog.min.js"></script>
-<script type="text/javascript" src="../wp-content/plugins/wwt-creator/js/ag-methods.js" ></script>
-
-
 <p>Enter each galaxy's Right Ascension and Declination values in decimal format. You can add more than one galaxy by clicking the Add Galaxy button.</p>	
 	
 <p><strong>Add Galaxy:</strong></p>

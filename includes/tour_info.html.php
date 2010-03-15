@@ -8,8 +8,8 @@
 	<label for="description" class="lb-right">Description</label>
 	
 	<div class="wwtti-tide">
-		<input type="text" id="title" name="title" value="" />
-		<textarea rows="2" cols="74" id="description" name="description" ></textarea>
+		<input type="text" id="title" name="wwt_title" value="" />
+		<textarea rows="2" cols="74" id="description" name="wwt_description" ></textarea>
 	</div>
 
 </div>
@@ -20,8 +20,8 @@
 	<label for="email" class="lb-right">Email</label>
 	
 	<div class="wwtti-auem">
-		<input type="text" id="author" name="author" value="" />
-		<input type="text" id="email" name="email" value="" />
+		<input type="text" id="author" name="wwt_author" value="" />
+		<input type="text" id="email" name="wwt_email" value="" />
 	</div>
 
 </div>

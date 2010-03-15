@@ -91,55 +91,55 @@
 		// Submit tour, sends an ajax request to save the ra/dec vals and submits the tour for php to take care of the rest
 		// for jQuery example see:
 		// http://stackoverflow.com/questions/353379/how-to-get-multiple-parameters-with-same-name-from-a-url-in-php
-		$z("#wwt-save-button").click(function(e) {
-
-			var raVals = new Array();
-			var decVals = new Array();
-
-			$z("input[id^='ra']").each(function() {
-				raVals.push( $z(this).val() );
-			});
-			$z("input[id^='dec']").each(function() {
-				decVals.push( $z(this).val() );
-			});
-			// remove empty input fields
-			raVals.pop();
-			decVals.pop();
-			
-			var url = "../wp-content/plugins/wwt-creator/functions/register.php";		
-			var params = "wwtra="+raVals.join(',') + "&wwtdec=" + decVals.join(',');
-			
-			// cross browser AJAX support
-			var http = null;
-			try{
-			  // Opera 8.0+, Firefox, Safari
-			  http = new XMLHttpRequest();
-			} catch (e){
-			  // Internet Explorer Browsers
-			  try{
-			    http = new ActiveXObject("Msxml2.XMLHTTP");
-			  } catch (e) {
-			    try{
-			      http = new ActiveXObject("Microsoft.XMLHTTP");
-			    } catch (e){
-			      alert("Your browser does not support Ajax. Please upgrade!");
-			      return false;
-			    }
-			  }
-			}
-			
-			http.onreadystatechange = function() {
-				if( http.readyState == 4 && http.status == 200 ) {
-					$z('#tour-form').submit();
-				}
-			}
-			
-			http.open( "POST", url, true );
-			http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			http.send( params );
-			
-			return false;
-		});
+		// $z("#wwt-save-button").click(function(e) {
+		// 
+		// 		var raVals = new Array();
+		// 		var decVals = new Array();
+		// 
+		// 		$z("input[id^='ra']").each(function() {
+		// 			raVals.push( $z(this).val() );
+		// 		});
+		// 		$z("input[id^='dec']").each(function() {
+		// 			decVals.push( $z(this).val() );
+		// 		});
+		// 		// remove empty input fields
+		// 		raVals.pop();
+		// 		decVals.pop();
+		// 		
+		// 		var url = "../wp-content/plugins/wwt-creator/functions/register.php";		
+		// 		var params = "wwtra="+raVals.join(',') + "&wwtdec=" + decVals.join(',');
+		// 		
+		// 		// cross browser AJAX support
+		// 		var http = null;
+		// 		try{
+		// 		  // Opera 8.0+, Firefox, Safari
+		// 		  http = new XMLHttpRequest();
+		// 		} catch (e){
+		// 		  // Internet Explorer Browsers
+		// 		  try{
+		// 		    http = new ActiveXObject("Msxml2.XMLHTTP");
+		// 		  } catch (e) {
+		// 		    try{
+		// 		      http = new ActiveXObject("Microsoft.XMLHTTP");
+		// 		    } catch (e){
+		// 		      alert("Your browser does not support Ajax. Please upgrade!");
+		// 		      return false;
+		// 		    }
+		// 		  }
+		// 		}
+		// 		
+		// 		http.onreadystatechange = function() {
+		// 			if( http.readyState == 4 && http.status == 200 ) {
+		// 				$z('#tour-form').submit();
+		// 			}
+		// 		}
+		// 		
+		// 		http.open( "POST", url, true );
+		// 		http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		// 		http.send( params );
+		// 		
+		// 		return false;
+		// 	});
 		
 		$z('.wwt-add-button').click(function(e) {
 			

@@ -1,5 +1,6 @@
 <?php
 
+// http://debuggable.com/posts/parsing-xml-using-simplexml:480f4dfe-6a58-4a17-a133-455acbdd56cb
 function toXML(	&$title, &$description, &$author, &$email, &$tours, &$audio ) {  
 
 	$url = "galaxyzoo.org";
