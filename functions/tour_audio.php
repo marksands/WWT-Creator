@@ -14,11 +14,14 @@ function UploadMusic() {
 		$OK = true;
 	}
 		
-		// valid MIME types
+		// valid MIME types ( although I'm not sure what valid mime types the wwt software accepts )
 	$permitted = array( 'audio/mpeg', 'audio/mpeg3', 'audio/x-mpeg-3', 
 		'audio/mpeg', 'audio/x-mpeg', 'audio/mp3',
 		'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3',
 		'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio',
+		'audio/basic', 'audio/mid', 'audio/x-aiff',
+		'audio/x-aiff', 'audio/x-aiff', 'audio/x-mpegurl',
+		'audio/x-pn-realaudio', 'audio/x-pn-realaudio', 'audio/x-wav'
 	);
 	
  		// check that file is of an permitted MIME type
