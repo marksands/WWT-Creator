@@ -216,7 +216,6 @@ function TourArchive() {
 		</thead> 
 
 		<tbody> 
-				
 		';		
 			  $results = ReadTourFiles();
 

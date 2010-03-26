@@ -31,7 +31,7 @@ function UploadMusic() {
 			break;
 		}
 	}
-
+	
 		// default empty path if not found
 	$webPath = "";
 		
