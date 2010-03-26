@@ -16,3 +16,4 @@ This WWT Creator is made possible by the awesome folks at [Galaxyzoo](http://www
 
 - Requires WordPress >= v2.9.1
 - Contributors: [Mark Sands](http://github.com/marksands) & [Jarod Luebbert](http://www.github.com/jarodluebbert)
+- URL: [Cosmic Remnants](http://www.cosmicremnants.com)
