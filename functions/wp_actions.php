@@ -15,7 +15,7 @@ function addHeaderCode() {
 
 add_action('admin_menu', 'WWTMenu');
 function WWTMenu() {
-	//	add_submenu_page('options-general.php', 'WorldWide Telescope', 'WWT Tour Creator', 1, 'WWT Tour Creator', 'wwt_meta');
+		//	add_submenu_page('options-general.php', 'WorldWide Telescope', 'WWT Tour Creator', 1, 'WWT Tour Creator', 'wwt_meta');
 	add_submenu_page('post-new.php', "Posts", "WWT Tour Creator", 1, "WWT Tour Creator", "wwt_meta"); 	 
 	add_meta_box('wwt-archive', 'WorldWide Telescope Tour Archive', 'TourArchive', 'post');
 }  
@@ -24,19 +24,18 @@ add_action('wp_ajax_permDeleteTour', 'perm_delete_tour');
 function perm_delete_tour()
 {
 	global $post;
-	
+
 	$id = $_POST['c'];
 	$tourfile = TourFromId( $id );
-	
-	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/tours/';
-	$file_to_delete = $path . $tourfile;
 
-	if ( $file_to_delete ) {
+	$file_to_delete = WP_CONTENT_DIR . '/plugins/wwt-creator/tours/' . $tourfile;
+	
+	if ( is_file($file_to_delete) ) {
 		unlink($file_to_delete);
 	}
-	
+
 	echo $id;
-  exit;	
+	exit;	
 }
 
 add_action('wp_ajax_linkTour', 'link_Tour');
@@ -63,7 +62,7 @@ function embed_Tour()
 	$tourfile = TourFromId( $id );
 	
 	$tour_link = WP_CONTENT_URL.'/plugins/wwt-creator/tours/' . str_replace(" ", "%20", $tourfile );
-	$embed = "<script type='text/javascript'>var wwtView;function loadTour(a){switch(a){case 1:wwtView.LoadTour('.$tour_link.');document.getElementById('playing').value='Playing Tour';break}document.getElementById('tour1').disabled=true;document.getElementById('restart').disabled=false;document.getElementById('stop').disabled=false}function stopTour(){wwtView.StopTour();document.getElementById('tour1').disabled=false;document.getElementById('restart').disabled=true;document.getElementById('stop').disabled=true;document.getElementById('playing').value='No tour currently playing'}function restartTour(){wwtView.PlayTour()}function wwtReady(){wwtView=document.getElementById('WWTView').content.WWT}</script>
+	$embed = "<script type='text/javascript'>var wwtView;function loadTour(a){switch(a){case 1:wwtView.LoadTour('$tour_link');document.getElementById('playing').value='Playing Tour';break}document.getElementById('tour1').disabled=true;document.getElementById('restart').disabled=false;document.getElementById('stop').disabled=false}function stopTour(){wwtView.StopTour();document.getElementById('tour1').disabled=false;document.getElementById('restart').disabled=true;document.getElementById('stop').disabled=true;document.getElementById('playing').value='No tour currently playing'}function restartTour(){wwtView.PlayTour()}function wwtReady(){wwtView=document.getElementById('WWTView').content.WWT}</script>
 						<table border='1' bgcolor='lightgrey'><tbody><tr><td><div id='WorldWideTelescopeControlHost'><object id='WWTView' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' width='480' height='342' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0'><param name='source' value='http://www.worldwidetelescope.org/webclient/WWTSL.xap' /><param name='background' value='black' /><param name='minRuntimeVersion' value='2.0.31005.0' /><param name='autoUpgrade' value='true' /><param name='initParams' value='NoUI=false,wtml=,webkey=AX2011Gqqu' /><param name='enableHtmlAccess' value='true' /><embed id='WWTView' type='application/x-shockwave-flash' width='480' height='342' enablehtmlaccess='true' initparams='NoUI=false,wtml=,webkey=AX2011Gqqu' autoupgrade='true' minruntimeversion='2.0.31005.0' background='black' source='http://www.worldwidetelescope.org/webclient/WWTSL.xap'></embed></object></div></td></tr><tr><td><input id='tour1' onclick='loadTour(1);' type='button' value='Load Tour' /> <input id='playing' type='text' value='No tour currently playing' /></td></tr></tbody></table>";
 
 	echo $embed;
@@ -140,6 +139,7 @@ function wtt_javascript_head() {
 	        {action:"permDeleteTour", "c":id, "cookie": encodeURIComponent(document.cookie)},
 	        function(str) {
 						jQuery('#tour_file_id_'+str).remove();
+						location.reload(); // temporary hack
 	        });
 	}
 	
@@ -256,6 +256,15 @@ function TourArchive() {
 	// nifty links for the developer: 
 	// 	- Authoring, tour sound files: http://worldwidetelescope.org/authoring/Authoring.aspx?Page=TourResources
 	// 	- WWT Complete: http://worldwidetelescope.org/COMPLETE/WWTCoverageTool.htm
+	
+	/*	Note to the developer:
+	 *		Using the id to delete/link/embed the tours simply will not work.
+	 *		Once you delete a tour, the id's remain static among the table.
+	 *		When you delete a tour and attempt to re-link, the id numbers,
+	 *		are then off by a factor of one. So you MUST refresh the page.
+	 *		This can be fixed by storing the names/loc in a database, but
+	 *		I always figured that to be overkill, now I'm thinking not..?
+	 */
 }
 
 
@@ -263,7 +272,7 @@ function TourFromId( $id ) {
 	$name = array();
 	$name = ReadTourFiles();
 	
-	$retval = 'tour-' . $name[ $id ] . '.wwt';
+	$retval = 'tour-' . $name[ $id ] . '.wtt';
 
 	return $retval;
 }
