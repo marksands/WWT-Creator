@@ -25,8 +25,8 @@ function perm_delete_tour()
 {
 	global $post;
 
-	$id = $_POST['c'];
-	$tourfile = TourFromId( $id );
+	$name = $_POST['c'];
+	$tourfile = TourFromName( $name );
 
 	$file_to_delete = WP_CONTENT_DIR . '/plugins/wwt-creator/tours/' . $tourfile;
 	
@@ -34,7 +34,7 @@ function perm_delete_tour()
 		unlink($file_to_delete);
 	}
 
-	echo $id;
+	echo $name;
 	exit;	
 }
 
@@ -134,9 +134,9 @@ function wtt_javascript_head() {
 	        });
 	}
 	
-	function PermDeleteTour(id) {
+	function PermDeleteTour(name) {
 	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
-	        {action:"permDeleteTour", "c":id, "cookie": encodeURIComponent(document.cookie)},
+	        {action:"permDeleteTour", "c":name, "cookie": encodeURIComponent(document.cookie)},
 	        function(str) {
 						jQuery('#tour_file_id_'+str).remove();
 						location.reload(); // temporary hack
@@ -267,6 +267,11 @@ function TourArchive() {
 	 */
 }
 
+function TourFromName( $name ) {
+	$retval = 'tour-' . $name . '.wtt';
+
+	return $retval;
+}
 
 function TourFromId( $id ) {	
 	$name = array();
