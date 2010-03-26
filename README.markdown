@@ -12,8 +12,8 @@ Follow the following steps to install this plugin.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
 ## Info
-This WWT Creator is made possible by the awesome folks at [Galaxyzoo](http://www.galaxyzoo.org) and [Zooniverse](http://www.zooniverse.org). Visit the sister program [here](http://wwt.galaxyzoo.org).
+This WWT Creator is made possible by the awesome folks at [Galaxyzoo](http://www.galaxyzoo.org) and [Zooniverse](http://www.zooniverse.org). Visit the sister program [here](http://wwt.galaxyzoo.org). And a huge thanks to Microsoft for helping with the API.
 
-- Requires WordPress >= v2.9.1
-- Contributors: [Mark Sands](http://github.com/marksands) & [Jarod Luebbert](http://www.github.com/jarodluebbert)
-- URL: [Cosmic Remnants](http://www.cosmicremnants.com)
+* Requires WordPress >= v2.9.1
+* Contributors: [Mark Sands](http://github.com/marksands) & [Jarod Luebbert](http://github.com/jarodluebbert)
+* URL: [Cosmic Remnants](http://www.cosmicremnants.com)
