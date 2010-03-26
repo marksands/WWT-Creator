@@ -25,7 +25,8 @@ function perm_delete_tour()
 {
 	global $post;
 
-	$name = $_POST['c'];
+	$id = $_POST['c'][0];
+	$name = $_POST['c'][1];
 	$tourfile = TourFromName( $name );
 
 	$file_to_delete = WP_CONTENT_DIR . '/plugins/wwt-creator/tours/' . $tourfile;
@@ -34,7 +35,7 @@ function perm_delete_tour()
 		unlink($file_to_delete);
 	}
 
-	echo $name;
+	echo $id;
 	exit;	
 }
 
@@ -44,7 +45,7 @@ function link_Tour()
 	global $post;
 	
 	$id = $_POST['c'];
-	$tourfile = TourFromId( $id );
+	$tourfile = TourFromName( $id );
 		
 	$tour_link = WP_CONTENT_URL.'/plugins/wwt-creator/tours/' . str_replace(" ", "%20", $tourfile );
 	$view_link = "<a href='http://www.worldwidetelescope.org/webclient/default.aspx?tour=$tour_link'>Link to Tour</a>";
@@ -59,7 +60,7 @@ function embed_Tour()
 	global $post;
 	
 	$id = $_POST['c'];
-	$tourfile = TourFromId( $id );
+	$tourfile = TourFromName( $id );
 	
 	$tour_link = WP_CONTENT_URL.'/plugins/wwt-creator/tours/' . str_replace(" ", "%20", $tourfile );
 	$embed = "<script type='text/javascript'>var wwtView;function loadTour(a){switch(a){case 1:wwtView.LoadTour('$tour_link');document.getElementById('playing').value='Playing Tour';break}document.getElementById('tour1').disabled=true;document.getElementById('restart').disabled=false;document.getElementById('stop').disabled=false}function stopTour(){wwtView.StopTour();document.getElementById('tour1').disabled=false;document.getElementById('restart').disabled=true;document.getElementById('stop').disabled=true;document.getElementById('playing').value='No tour currently playing'}function restartTour(){wwtView.PlayTour()}function wwtReady(){wwtView=document.getElementById('WWTView').content.WWT}</script>
@@ -112,9 +113,9 @@ function wtt_javascript_head() {
 	</style>
 	<script type="text/javascript">
 	//<![CDATA[
-	function HardLinkTour(id) {
+	function HardLinkTour(name) {
 	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
-	        {action:"linkTour", "c":id, "cookie": encodeURIComponent(document.cookie)},
+	        {action:"linkTour", "c":name, "cookie": encodeURIComponent(document.cookie)},
 	        function(str) {
 						if ( jQuery('#edButtonPreview').hasClass('active') ) {
 							var ibod = jQuery('#content_ifr').contents().find('body');
@@ -126,20 +127,19 @@ function wtt_javascript_head() {
 	}
 
 
-	function EmbedCodeTour(id) {
+	function EmbedCodeTour(name) {
 	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
-	        {action:"embedTour", "c":id, "cookie": encodeURIComponent(document.cookie)},
+	        {action:"embedTour", "c":name, "cookie": encodeURIComponent(document.cookie)},
 	        function(str) {
 						jQuery('#content').val( jQuery('#content').val() + str );
 	        });
 	}
 	
-	function PermDeleteTour(name) {
+	function PermDeleteTour(id, name) {
 	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
-	        {action:"permDeleteTour", "c":name, "cookie": encodeURIComponent(document.cookie)},
+	        {action:"permDeleteTour", "c[]":[id, name], "cookie": encodeURIComponent(document.cookie)},
 	        function(str) {
 						jQuery('#tour_file_id_'+str).remove();
-						location.reload(); // temporary hack
 	        });
 	}
 	
@@ -230,15 +230,15 @@ function TourArchive() {
 							<strong>$res</strong>
 						</td>
 						<td>
-							<input type='submit' id='embedTour' onClick='EmbedCodeTour($i); return false;'
+							<input type='submit' id='embedTour' onClick='EmbedCodeTour(\"$res\"); return false;'
 									name='embed_tour' value='Embed' />
 						</td>
 						<td>
-							<input type='submit' id='hardLinkTour' onClick='HardLinkTour($i); return false;'
+							<input type='submit' id='hardLinkTour' onClick='HardLinkTour(\"$res\"); return false;'
 									name='hardlink_tour' class='add:the-list:newmeta' value='Hard Link' />
 						</td>
 						<td>
-							<input type='submit' id='deleteTour' onClick='PermDeleteTour($i); return false;'
+							<input type='submit' id='deleteTour' onClick='PermDeleteTour($i, \"".$res."\"); return false;'
 									name='delete_tour' class='add:the-list:newmeta delTour' value='Delete'' />
 						</td>
 						</tr>";
@@ -256,15 +256,6 @@ function TourArchive() {
 	// nifty links for the developer: 
 	// 	- Authoring, tour sound files: http://worldwidetelescope.org/authoring/Authoring.aspx?Page=TourResources
 	// 	- WWT Complete: http://worldwidetelescope.org/COMPLETE/WWTCoverageTool.htm
-	
-	/*	Note to the developer:
-	 *		Using the id to delete/link/embed the tours simply will not work.
-	 *		Once you delete a tour, the id's remain static among the table.
-	 *		When you delete a tour and attempt to re-link, the id numbers,
-	 *		are then off by a factor of one. So you MUST refresh the page.
-	 *		This can be fixed by storing the names/loc in a database, but
-	 *		I always figured that to be overkill, now I'm thinking not..?
-	 */
 }
 
 function TourFromName( $name ) {
