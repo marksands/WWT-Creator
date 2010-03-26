@@ -4,18 +4,17 @@ add_action('admin_head','addHeaderCode');
 function addHeaderCode() {
 	echo '<link type="text/css" rel="stylesheet" href="' . WP_PLUGIN_URL . '/wwt-creator/css/main.css" />' . "\n";	
 
-	echo '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>';
-	echo '<script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/effects.core.js" ></script>';
-	echo '<script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/effects.highlight.js" ></script>';
-
+	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery/jquery-1.4.2.min.js"></script>';
+	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery/jquery-ui-1.8.custom.min.js"></script>';
 	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery/jquery.colorbox.js"></script>';
+	
 	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/messier_catalog.min.js"></script>';
 	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/ag-methods.js" ></script>';	
 }
 
 add_action('admin_menu', 'WWTMenu');
 function WWTMenu() {
-		//	add_submenu_page('options-general.php', 'WorldWide Telescope', 'WWT Tour Creator', 1, 'WWT Tour Creator', 'wwt_meta');
+	//	add_submenu_page('options-general.php', 'WorldWide Telescope', 'WWT Tour Creator', 1, 'WWT Tour Creator', 'wwt_meta');
 	add_submenu_page('post-new.php', "Posts", "WWT Tour Creator", 1, "WWT Tour Creator", "wwt_meta"); 	 
 	add_meta_box('wwt-archive', 'WorldWide Telescope Tour Archive', 'TourArchive', 'post');
 }  

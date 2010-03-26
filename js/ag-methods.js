@@ -109,7 +109,7 @@
 				.appendTo('#row'+id);
 
 				// yellow fade
-			//jQuery("#row"+id).effect("highlight", { color:"#ffff66" }, 1500);
+			jQuery("#row"+id).effect("highlight", { color:"#ffff66" }, 1500);
 
 			id = (id - 1) + 2;
 			jQuery('#galaxy-id').val(id);
