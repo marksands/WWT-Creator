@@ -1,7 +1,7 @@
 <?php
 
 	// define a constant for the maximum upload size, 500MB, fairly large
-define ('MAX_FILE_SIZE', 524288000); 
+define ('MAX_FILE_SIZE', 524288000);
 
 function UploadMusic() {
 
@@ -37,7 +37,7 @@ function UploadMusic() {
 		
 	if ( $OK && $_FILES['audio-file']['name'] != NULL ) {
 		move_uploaded_file($_FILES['audio-file']['tmp_name'], $path);	
-		$webPath = WP_PLUGIN_URL.'/wwt-creator/tours/' . str_replace(" ", "%20", $_FILES['audio-file']['name'] );		
+		$webPath = WP_PLUGIN_URL.'/wwt-creator/tours/' . urlencode( $_FILES['audio-file']['name'] );
 	}
 
 	return $webPath;
