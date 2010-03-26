@@ -1,10 +1,10 @@
 	
-	$z = jQuery.noConflict();
+	jQuery.noConflict();
 	
 	// helper
 	function convertToDecimal(old) {
 		var flag = false;
-		var degrees = (old).replace(/:[^:]+$z/, '');
+		var degrees = (old).replace(/:[^:]+jQuery/, '');
 		var minutes = (old).replace(/^.\d+:/, '');
 		
 		if ( /^\d+[.]/.test(minutes) ) {
@@ -13,8 +13,8 @@
 		}
 		
 		// truncate seconds
-		if ( /[.]\d+$z/.test(minutes) ) {
-			minutes = minutes.replace(/.\d+$z/, '');
+		if ( /[.]\d+jQuery/.test(minutes) ) {
+			minutes = minutes.replace(/.\d+jQuery/, '');
 		}
 		
 		if ( /^0/.test(minutes) ) {
@@ -37,16 +37,16 @@
 
 	jQuery(function() {
 				
-		$z("a[rel='modal']").colorbox({
+		jQuery("a[rel='modal']").colorbox({
 			transition:"fade",
 			initialWidth:"263",
 			initialHeight:"109",
 			overlayClose:"false"
 		});
 		
-		$z('#messier').change(function(){
-			$z('#ra').val(convertToDecimal(messier_catalog[$z(this).val()-1].ra));
-			$z('#dec').val(convertToDecimal(messier_catalog[$z(this).val()-1].dec));
+		jQuery('#messier').change(function(){
+			jQuery('#ra').val(convertToDecimal(messier_catalog[jQuery(this).val()-1].ra));
+			jQuery('#dec').val(convertToDecimal(messier_catalog[jQuery(this).val()-1].dec));
 		});
 
 		(function(){
@@ -71,42 +71,48 @@
 			}
 		})();
 
-		$z('#wwt-del-button-id').live('click', function() {
+		jQuery('#wwt-del-button-id').live('click', function() {
 			timer(function(){ 
 				pause();
 				setTimeout(function(){
-					$z(this).parent().effect("highlight", { color:"#ff0000" }, 800);
+					jQuery(this).parent().effect("highlight", { color:"#ff0000" }, 800);
 					resume();
 				}, 800);
 			});
 			timer(function(){
 				pause();
 				setTimeout(function(){
-					$z(this).parent().remove()
+					jQuery(this).parent().remove()
 					resume();
 				}, 200);
 			});
 		});
 		
-		$z('.wwt-add-button').click(function(e) {
+		jQuery('.wwt-add-button').click(function(e) {
 			
-			var raVal = $z('#ra').val();
-				$z('#ra').val('');
-			var decVal = $z('#dec').val();
-				$z('#dec').val('');
-			var id = $z('#galaxy-id').val();
-				$z('#galaxy-id').val('');
-
-			$z('<div class="hilite" id="row'+id+'" />')
+				// RA - set and reset
+			var raVal = jQuery('#ra').val();
+				jQuery('#ra').val('');
+				// DEC - set and reset
+			var decVal = jQuery('#dec').val();
+				jQuery('#dec').val('');
+				// ID - set and reset
+			var id = jQuery('#galaxy-id').val();
+				jQuery('#galaxy-id').val('');
+				
+				// add the ra/dec to the list
+			jQuery('<div class="hilite" id="row'+id+'" />')
 				.appendTo('#add-galaxy-div');
-
-			$z('<input type="text" class="wwt-ra" id="ra'+id+'" name="ra'+id+'" value="'+raVal+'" /><input type="text" class="wwt-dec" id="dec'+id+'" name="dec'+id+'" value="'+decVal+'" /><a id="wwt-del-button-id" class="wwt-del-button"><span class="wwt-del">Delete</span></a>')
+				
+				// Add the RA/DEC inputs and a delete button
+			jQuery('<input type="text" class="wwt-ra" id="ra'+id+'" name="ra'+id+'" value="'+raVal+'" /><input type="text" class="wwt-dec" id="dec'+id+'" name="dec'+id+'" value="'+decVal+'" /><a id="wwt-del-button-id" class="wwt-del-button"><span class="wwt-del">Delete</span></a>')
 				.appendTo('#row'+id);
 
-			$z("#row"+id).effect("highlight", { color:"#ffff66" }, 1500);
+				// yellow fade
+			//jQuery("#row"+id).effect("highlight", { color:"#ffff66" }, 1500);
 
 			id = (id - 1) + 2;
-			$z('#galaxy-id').val(id);
+			jQuery('#galaxy-id').val(id);
 
 			return false;
 		});
