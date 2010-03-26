@@ -38,7 +38,7 @@ function wwt_meta()
 
 if( $_POST['wwt_title'] ) {
 
-	// http://debuggable.com/posts/parsing-xml-using-simplexml:480f4dfe-6a58-4a17-a133-455acbdd56cb
+		// http://debuggable.com/posts/parsing-xml-using-simplexml:480f4dfe-6a58-4a17-a133-455acbdd56cb
 	$xml = simplexml_load_file(WP_PLUGIN_DIR.'/wwt-creator/tour2.xml');
 	foreach($xml as $stops) {
 		foreach( $stops as $stop) {
@@ -53,11 +53,11 @@ if( $_POST['wwt_title'] ) {
  
 	$audio = UploadMusic();
  
-	$title = $_REQUEST['wwt_title'];
+	$wtitle = $_REQUEST['wwt_title'];
 	$description = $_REQUEST['wwt_description'];
 	$author = $_REQUEST['wwt_author'];
 	
-	// empty email address defaults to blogger's email
+		// default to blogger's email address
 	if ( $_POST['wwt-author'] ) {
 		$wwt_email = $_POST['wwt_email'];
 	} else {
@@ -65,11 +65,11 @@ if( $_POST['wwt_title'] ) {
 	}
 	
 	$info = array( 
-		'title' => $title,
+		'title' => $wtitle,
 		'description' => $description
 	);
  
-	toXML( $title, $description, $author, $email, $tours, $audio );
+	toXML( $wtitle, $description, $author, $email, $tours, $audio );
 	getTourFromXML( $info, $audio );
 }
 

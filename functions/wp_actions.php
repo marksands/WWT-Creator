@@ -15,10 +15,29 @@ function addHeaderCode() {
 
 add_action('admin_menu', 'WWTMenu');
 function WWTMenu() {
-	//add_submenu_page('options-general.php', 'WorldWide Telescope', 'WWT Tour Creator', 1, 'WWT Tour Creator', 'wwt_meta');
+	//	add_submenu_page('options-general.php', 'WorldWide Telescope', 'WWT Tour Creator', 1, 'WWT Tour Creator', 'wwt_meta');
 	add_submenu_page('post-new.php', "Posts", "WWT Tour Creator", 1, "WWT Tour Creator", "wwt_meta"); 	 
 	add_meta_box('wwt-archive', 'WorldWide Telescope Tour Archive', 'TourArchive', 'post');
 }  
+
+add_action('wp_ajax_permDeleteTour', 'perm_delete_tour');
+function perm_delete_tour()
+{
+	global $post;
+	
+	$id = $_POST['c'];
+	$tourfile = TourFromId( $id );
+	
+	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/tours/';
+	$file_to_delete = $path . $tourfile;
+
+	if ( $file_to_delete ) {
+		unlink($file_to_delete);
+	}
+	
+	echo $id;
+  exit;	
+}
 
 add_action('wp_ajax_linkTour', 'link_Tour');
 function link_Tour()
@@ -116,6 +135,14 @@ function wtt_javascript_head() {
 	        });
 	}
 	
+	function PermDeleteTour(id) {
+	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
+	        {action:"permDeleteTour", "c":id, "cookie": encodeURIComponent(document.cookie)},
+	        function(str) {
+						jQuery('#tour_file_id_'+str).remove();
+	        });
+	}
+	
 	
 	jQuery(function() {
 	
@@ -185,37 +212,37 @@ function TourArchive() {
 				<th class="left">Tour Name</th> 
 				<th>Click to Embed</th> 
 				<th>Click to Link</th> 
-				<!-- <th>Delete Tour</th> -->
+				<th>Delete Tour</th>
 			</tr> 
 		</thead> 
 
 		<tbody> 
 				
-		';
-														
+		';		
 			  $results = ReadTourFiles();
 
 				$i = 0;
 				foreach ( $results as $res )
 				{
 					echo
-						"<tr>
-							<td id='' class='left'>
-								<strong>$res</strong>
-							</td>
-							<td>
-								<input type='submit' id='embedTour' onClick='EmbedCodeTour($i); return false;' name='embed_tour' value='Embed' />
-							</td>
-							<td>
-								<input type='submit' id='hardLinkTour' onClick='HardLinkTour($i); return false;' name='hardlink_tour' class='add:the-list:newmeta' value='Hard Link' />
-							</td>
-							<!--
-							<td>
-								<input type='submit' id='deleteTour' name='delete_tour' class='add:the-list:newmeta delTour' value='Delete'' />
-							</td>
-							-->
+					"<tr id='tour_file_id_$i'>
+						<td id='' class='left'>
+							<strong>$res</strong>
+						</td>
+						<td>
+							<input type='submit' id='embedTour' onClick='EmbedCodeTour($i); return false;'
+									name='embed_tour' value='Embed' />
+						</td>
+						<td>
+							<input type='submit' id='hardLinkTour' onClick='HardLinkTour($i); return false;'
+									name='hardlink_tour' class='add:the-list:newmeta' value='Hard Link' />
+						</td>
+						<td>
+							<input type='submit' id='deleteTour' onClick='PermDeleteTour($i); return false;'
+									name='delete_tour' class='add:the-list:newmeta delTour' value='Delete'' />
+						</td>
 						</tr>";
-						$i++;
+					$i++;
 				}
 				
 		echo '
@@ -226,9 +253,9 @@ function TourArchive() {
 	
 	';
 
-	// nifty links
-	// Authoring, tour sound files: http://worldwidetelescope.org/authoring/Authoring.aspx?Page=TourResources
-	// WWT Complete: http://worldwidetelescope.org/COMPLETE/WWTCoverageTool.htm
+	// nifty links for the developer: 
+	// 	- Authoring, tour sound files: http://worldwidetelescope.org/authoring/Authoring.aspx?Page=TourResources
+	// 	- WWT Complete: http://worldwidetelescope.org/COMPLETE/WWTCoverageTool.htm
 }
 
 
@@ -258,10 +285,10 @@ function ReadTourFiles() {
 }
 
 function StripTitle( $tourfile ) {
-	$title = str_replace("tour-", "", $tourfile );
-	$title = str_replace(".wtt", "", $title );
+	$wtitle = str_replace("tour-", "", $tourfile );
+	$wtitle = str_replace(".wtt", "", $wtitle );
 	
-	return $title;		
+	return $wtitle;		
 }
 
 

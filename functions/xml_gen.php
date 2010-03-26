@@ -1,7 +1,7 @@
 <?php
 
 // http://debuggable.com/posts/parsing-xml-using-simplexml:480f4dfe-6a58-4a17-a133-455acbdd56cb
-function toXML(	&$title, &$description, &$author, &$email, &$tours, &$audio ) {  
+function toXML(	&$wtitle, &$description, &$author, &$email, &$tours, &$audio ) {  
 
 	$url = "galaxyzoo.org";
 	$team = "galaxyzoo";
@@ -9,7 +9,7 @@ function toXML(	&$title, &$description, &$author, &$email, &$tours, &$audio ) {
 	$xmltext = "<?xml version=\"1.0\"?>\n<Tour></Tour>";
 	$xmlobj = simplexml_load_string($xmltext);
 
-	$xmlobj->addChild( "Title", $title );
+	$xmlobj->addChild( "Title", $wtitle );
 	$xmlobj->addChild( "Description", $description );
 	$xmlobj->addChild( "Author", $author );
 	$xmlobj->addChild( "Email", $email );
