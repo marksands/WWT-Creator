@@ -223,10 +223,11 @@ function TourArchive() {
 				$i = 0;
 				foreach ( $results as $res )
 				{
+					$nm = shorten($res);
 					echo
 					"
 						<div class='tour_block' id='tour_file_id_$i'>
-							<h2>$res</h2>
+							<h2>$nm</h2>
 							<a href='#' onClick='PermDeleteTour($i, \"".$res."\"); return false;' ><span class='deltourimg' ></span></a>
 							<br style='clear:both;' />
 							<a href='#' onClick='EmbedCodeTour(\"$res\"); return false;'><span class='tourstylebtn' >Embed</span></a>
@@ -285,6 +286,20 @@ function StripTitle( $tourfile ) {
 	$wtitle = str_replace(".wtt", "", $wtitle );
 	
 	return $wtitle;		
+}
+
+
+function shorten( $text ) {
+			$chars = 32; 
+			if(strlen($text) <= $chars)
+				return $text;
+			
+			$text = $text . " "; 
+			$text = substr($text,0,$chars); 
+			$text = substr($text,0,strrpos($text,' ')); 
+			$text = $text . "..."; 
+
+			return $text;
 }
 
 
