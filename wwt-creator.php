@@ -39,7 +39,7 @@ function wwt_meta()
 if( $_POST['wwt_title'] ) {
 
 		// http://debuggable.com/posts/parsing-xml-using-simplexml:480f4dfe-6a58-4a17-a133-455acbdd56cb
-	$xml = simplexml_load_file(WP_PLUGIN_DIR.'/wwt-creator/tour2.xml');
+	$xml = simplexml_load_file( $wwtpluginpath . 'tour2.xml');
 	foreach($xml as $stops) {
 		foreach( $stops as $stop) {
 			$tours[] = array( 
