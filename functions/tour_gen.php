@@ -1,11 +1,18 @@
 <?php
 
+// DON'T CHANGE THIS FILE UNLESS YOU KNOW WHAT YOU ARE DOING
+// I REPEAT
+// DON'T CHANGE THIS FILE UNLESS YOU KNOW WHAT YOU ARE DOING
+
+
 function getTourFromXML( &$info, &$audio ) {
 	
 	$server  = 'www.worldwidetelescope.org';
 	$port    = '80';
 	$uri     = 'http://www.worldwidetelescope.org/wwtweb/xml2wtt.aspx';
 	$content = '';
+	
+	// You are safe to edit from here....
 	
 	$path = WP_CONTENT_DIR.'/plugins/'.'wwt-creator/';
 	$tourDir = $path . 'tours/';
@@ -35,6 +42,8 @@ function getTourFromXML( &$info, &$audio ) {
 	// since it's now merged with the tour file
 	if ( $audio )
 		unlink( $tourDir . str_replace( "%20", " ", basename($audio) ) );
+		
+	// ...To here
 }
 	
 function write( $server, $port, $uri, &$content ) {

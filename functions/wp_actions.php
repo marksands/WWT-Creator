@@ -250,12 +250,28 @@ function TourArchive() {
 	// 	- WWT Complete: http://worldwidetelescope.org/COMPLETE/WWTCoverageTool.htm
 }
 
+/*
+ * Returns the tour url from
+ * the specified name
+ *
+ */
 function TourFromName( $name ) {
 	$retval = 'tour-' . $name . '.wtt';
 
 	return $retval;
 }
 
+/*
+ * Returns the tour url from 
+ * the specified id, where the
+ * id is the position in the
+ * array of glob'd tour files
+ * 
+ * - NOTE - this function
+ * has been deprecated and
+ * is no longer in use
+ *
+ */
 function TourFromId( $id ) {	
 	$name = array();
 	$name = ReadTourFiles();
@@ -265,6 +281,12 @@ function TourFromId( $id ) {
 	return $retval;
 }
 
+/*
+ * Returns an array of
+ * all the tour files
+ * in the tours directory
+ *
+ */
 function ReadTourFiles() {
 		$tourDir = WP_PLUGIN_DIR.'/wwt-creator/tours/';		
     $results = array();
@@ -281,6 +303,12 @@ function ReadTourFiles() {
     return $results;
 }
 
+/*
+ * Strips the url of the 
+ * tour- and the .wtt to 
+ * return just the title
+ *
+ */
 function StripTitle( $tourfile ) {
 	$wtitle = str_replace("tour-", "", $tourfile );
 	$wtitle = str_replace(".wtt", "", $wtitle );
@@ -288,7 +316,10 @@ function StripTitle( $tourfile ) {
 	return $wtitle;		
 }
 
-
+/*
+ * Shortens text to 32 characters
+ *
+ */
 function shorten( $text ) {
 			$chars = 32; 
 			if(strlen($text) <= $chars)
