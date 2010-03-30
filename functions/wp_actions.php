@@ -4,9 +4,9 @@ add_action('admin_head','addHeaderCode');
 function addHeaderCode() {
 	echo '<link type="text/css" rel="stylesheet" href="' . WP_PLUGIN_URL . '/wwt-creator/css/main.css" />' . "\n";	
 
-	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery/jquery-1.4.2.min.js"></script>';
-	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery/jquery-ui-1.8.custom.min.js"></script>';
-	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery/jquery.colorbox.js"></script>';
+	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery-1.4.2.min.js"></script>';
+	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery-ui-1.8.custom.min.js"></script>';
+	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/jquery.colorbox.js"></script>';
 	
 	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/messier_catalog.min.js"></script>';
 	echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/wwt-creator/js/ag-methods.js" ></script>';	
@@ -103,13 +103,6 @@ function write_ra_dec() {
 add_action('admin_head', 'wtt_javascript_head');
 function wtt_javascript_head() { 
 ?>
-	<style type="text/css" media="screen">
-	<!--
-	.fake_css_class {
-		
-	}
-	-->
-	</style>
 	<script type="text/javascript">
 	//<![CDATA[
 	function HardLinkTour(name) {
@@ -124,27 +117,33 @@ function wtt_javascript_head() {
 						}
 	        });
 	}
-
-
+ 
+ 
 	function EmbedCodeTour(name) {
 	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
 	        {action:"embedTour", "c":name, "cookie": encodeURIComponent(document.cookie)},
 	        function(str) {
-						jQuery('#content').val( jQuery('#content').val() + str );
+						if ( jQuery('#edButtonPreview').hasClass('active') ) {
+							var ibod = jQuery('#content_ifr').contents().find('body');
+							jQuery(ibod).html( jQuery(ibod).html() + str );
+						} else {
+							jQuery('#content').val( jQuery('#content').val() + str );
+						}
 	        });
 	}
 	
 	function PermDeleteTour(id, name) {
-	    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
-	        {action:"permDeleteTour", "c[]":[id, name], "cookie": encodeURIComponent(document.cookie)},
-	        function(str) {
-						jQuery('#tour_file_id_'+str).remove();
-	        });
+			if ( confirm("Are you sure you want to delete the tour?") ) {
+		    jQuery.post("<?php echo get_option('siteurl'); ?>/wp-admin/admin-ajax.php",
+		        {action:"permDeleteTour", "c[]":[id, name], "cookie": encodeURIComponent(document.cookie)},
+		        function(str) {
+							jQuery('#tour_file_id_'+str).remove();
+		        });
+			}
 	}
 	
 	
 	jQuery(function() {
-	
 		jQuery("#wwt-save-button").click(function(e) {
 
 			var raVals  = new Array();
@@ -166,10 +165,7 @@ function wtt_javascript_head() {
 						jQuery('#tour-form').submit();
 	        });
 		});
-	
 	});
-	
-
 	//]]>
 	</script>
 
@@ -186,6 +182,7 @@ function TourArchive() {
 		<p><strong>Select from tour archive:</strong></p> 
 
 		<!--  Inner List -->
+		<!--
 		<table id="list-table" style="display: none;"> 
 			<thead> 
 			<tr> 
@@ -202,10 +199,13 @@ function TourArchive() {
 				</tr>
 			</tbody>
 		</table>
+		-->
 
 		<!--  Outer Header thingy-->
-		<table id="newmeta"> 
+		<!-- <table id="newmeta"> -->
+		<table>
 
+		<!--
 		<thead> 
 			<tr> 
 				<th class="left">Tour Name</th> 
@@ -213,39 +213,32 @@ function TourArchive() {
 				<th>Click to Link</th> 
 				<th>Delete Tour</th>
 			</tr> 
-		</thead> 
+		</thead>
+		-->
 
-		<tbody> 
-		';		
+		<!-- <tbody>  -->
+		';
 			  $results = ReadTourFiles();
 
 				$i = 0;
 				foreach ( $results as $res )
 				{
 					echo
-					"<tr id='tour_file_id_$i'>
-						<td id='' class='left'>
-							<strong>$res</strong>
-						</td>
-						<td>
-							<input type='submit' id='embedTour' onClick='EmbedCodeTour(\"$res\"); return false;'
-									name='embed_tour' value='Embed' />
-						</td>
-						<td>
-							<input type='submit' id='hardLinkTour' onClick='HardLinkTour(\"$res\"); return false;'
-									name='hardlink_tour' class='add:the-list:newmeta' value='Hard Link' />
-						</td>
-						<td>
-							<input type='submit' id='deleteTour' onClick='PermDeleteTour($i, \"".$res."\"); return false;'
-									name='delete_tour' class='add:the-list:newmeta delTour' value='Delete'' />
-						</td>
-						</tr>";
+					"
+						<div class='tour_block' id='tour_file_id_$i'>
+							<h2>$res</h2>
+							<a href='#' onClick='PermDeleteTour($i, \"".$res."\"); return false;' ><span class='deltourimg' ></span></a>
+							<br style='clear:both;' />
+							<a href='#' onClick='EmbedCodeTour(\"$res\"); return false;'><span class='tourstylebtn' >Embed</span></a>
+							<a href='#' onClick='HardLinkTour(\"$res\"); return false;'><span class='tourstylebtn' >Link</span></a>
+						</div>
+					";
 					$i++;
 				}
 				
 		echo '
 			
-			</tbody>
+			<!-- </tbody> -->
 		</table>
 		</div>
 	
