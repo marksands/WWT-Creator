@@ -49,42 +49,9 @@
 			jQuery('#dec').val(convertToDecimal(messier_catalog[jQuery(this).val()-1].dec));
 		});
 
-		(function(){
-			var queue = [], paused = false;
-			this.timer = function(fn){
-				queue.push( fn ); runTimer();
-			};
-			this.pause = function(){
-				paused = true;
-			};
-			this.resume = function(){
-				paused = false; setTimeout(runTimer, 1);
-			};
-			function runTimer(){ 
-				if ( !paused && queue.length ) {
-					queue.shift()();
-					
-					if ( !paused ) {
-						resume();
-					}
-				}
-			}
-		})();
-
 		jQuery('#wwt-del-button-id').live('click', function() {
-			timer(function(){ 
-				pause();
-				setTimeout(function(){
-					jQuery(this).parent().effect("highlight", { color:"#ff0000" }, 800);
-					resume();
-				}, 800);
-			});
-			timer(function(){
-				pause();
-				setTimeout(function(){
-					jQuery(this).parent().remove()
-					resume();
-				}, 200);
+			jQuery(this).parent().effect("highlight", { color:"#f00" }, 800, function(){
+				jQuery(this).remove();
 			});
 		});
 		
